@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TileScript : MonoBehaviour {
 
 	public List<Transform> Adjacents;
-	public Vector3 Position;
+	public Vector2 Position;
 
 	// Use this for initialization
 	void Start () {
