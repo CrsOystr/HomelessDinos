@@ -14,6 +14,9 @@ public class TileScript : MonoBehaviour {
 
 	ISOGRID parentScript;
 
+	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
+	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
 	// Use this for initialization
 	void Start () {
 		parentScript = transform.parent.GetComponent<ISOGRID>();
@@ -39,6 +42,26 @@ public class TileScript : MonoBehaviour {
 			currentObject.parent = transform;
 			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
 			objectPlaced = true;
+
+			if (selected)
+			{
+				currentObject.renderer.material.color = tintObject;
+			}
+		}
+	}
+
+	public void highlightObject()
+	{
+		if (objectPlaced)
+		{
+			currentObject.renderer.material.color = tintObject;
+		}
+	}
+	public void unHighlightObject()
+	{
+		if (objectPlaced)
+		{
+			currentObject.renderer.material.color = restoreObject;
 		}
 	}
 }

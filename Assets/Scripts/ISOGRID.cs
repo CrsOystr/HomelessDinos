@@ -56,6 +56,7 @@ public class ISOGRID : MonoBehaviour {
 
 			//selectedTile.renderer.material.SetColor("_TintColor", tintTile);
 			selectedTile.renderer.material.color = tintTile;
+			selectedTile.GetComponent<TileScript>().highlightObject();
 
 		}
 		// a tile was previously selected and must be cleaned up
@@ -63,6 +64,7 @@ public class ISOGRID : MonoBehaviour {
 		{
 				
 			selectedTile.renderer.material.color = restoreTile;
+			selectedTile.GetComponent<TileScript>().unHighlightObject();
 			selectedTile.GetComponent<TileScript>().selected = false;
 
 			selectedTile = newTile;
@@ -71,6 +73,7 @@ public class ISOGRID : MonoBehaviour {
 			
 			//selectedTile.renderer.material.SetColor("_TintColor", tintTile);
 			selectedTile.renderer.material.color = tintTile;
+			selectedTile.GetComponent<TileScript>().highlightObject();
 		}
 	}
 
