@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CellPrefab: {fileID: 421808, guid: 9514735f6b9f39a42b227e771f4cc27a, type: 2}
-  Size: {x: 4, y: 4, z: 0}
+  Size: {x: 10, y: 10, z: 0}
+  selectedTile: {fileID: 0}
 --- !u!4 &657554700
 Transform:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ GameObject:
   - 92: {fileID: 871021302}
   - 124: {fileID: 871021301}
   - 81: {fileID: 871021300}
+  - 114: {fileID: 871021305}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -199,6 +201,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &871021305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871021299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c899b3f821f2364429765feb977f0fcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camSpeed: 4.5
+  bound: 40
 --- !u!1 &1797542856
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellPrefab: {fileID: 441594, guid: 8d8bd6311bf277f43b58a2b4da0e9ec8, type: 2}
   Size: {x: 4, y: 4, z: 0}
+  selectedTile: {fileID: 0}
 --- !u!4 &1797542858
 Transform:
   m_ObjectHideFlags: 0
