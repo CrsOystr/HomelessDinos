@@ -14,7 +14,8 @@ public class cameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		transform.position = new Vector3 (transform.position.x, transform.position.y+5, transform.position.z);
+
 	}
 	
 	// Update is called once per frame

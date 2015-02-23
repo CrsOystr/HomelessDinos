@@ -21,7 +21,14 @@ public class ISOGRID : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
+		if (selectedTile != null)
+		{
+			// press button for stove
+			if(Input.GetKeyDown("space"))
+			{
+				selectedTile.GetComponent<TileScript>().buildObject(newObject);
+			}
+		}
 	}
 
 	void CreateGrid(){

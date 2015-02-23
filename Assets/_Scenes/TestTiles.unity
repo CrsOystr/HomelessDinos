@@ -104,6 +104,7 @@ MonoBehaviour:
   CellPrefab: {fileID: 421808, guid: 9514735f6b9f39a42b227e771f4cc27a, type: 2}
   Size: {x: 10, y: 10, z: 0}
   selectedTile: {fileID: 0}
+  newObject: {fileID: 400000, guid: ac365c8e95bdae744a1060e1c847bc57, type: 2}
 --- !u!4 &657554700
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +245,7 @@ MonoBehaviour:
   CellPrefab: {fileID: 441594, guid: 8d8bd6311bf277f43b58a2b4da0e9ec8, type: 2}
   Size: {x: 4, y: 4, z: 0}
   selectedTile: {fileID: 0}
+  newObject: {fileID: 0}
 --- !u!4 &1797542858
 Transform:
   m_ObjectHideFlags: 0
