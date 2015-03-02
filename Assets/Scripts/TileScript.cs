@@ -3,16 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TileScript : MonoBehaviour {
+	ISOGRID parentScript;
 
-	public List<Transform> Adjacents;
 	public Vector2 Position;
-
+	
 	public bool selected = false;
-
 	public GameObject currentObject;
 	bool objectPlaced = false;
 
-	ISOGRID parentScript;
 
 	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
 	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -44,6 +42,9 @@ public class TileScript : MonoBehaviour {
 			currentObject.transform.parent = this.transform;
 			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
 			objectPlaced = true;
+
+			//ADDED THIS EXPERIMENTING HOW TO DO LOGIC
+			this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(false);
 
 			if (selected)
 			{

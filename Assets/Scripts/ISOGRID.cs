@@ -5,8 +5,12 @@ public class ISOGRID : MonoBehaviour {
 
 	public Transform CellPrefab;
 	public Vector3 Size;
-	public Transform[,] Grid;
 	public GameObject selectedTile;
+
+
+	public Transform[,] Grid;
+	public GameBuilding[,] Logic_Grid;
+	
 
 	Color tintTile = new Color(0.7f, 0.7f, 0.7f, 1.0f);
 	Color restoreTile = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -40,8 +44,9 @@ public class ISOGRID : MonoBehaviour {
 
 	//FUNction for set up the grid
 	void CreateGrid(){
-		//this gives us a grid to reference later
+		//this gives us a grid of the correct size to reference and use as logic later
 		Grid = new Transform[(int)Size.x,(int)Size.y];
+		Logic_Grid = new GameBuilding[(int)Size.x,(int)Size.y];
 
 		//Visually creates all the tiles and places them into grid
 		for (int y= 0; y < Size.y; y++) {
