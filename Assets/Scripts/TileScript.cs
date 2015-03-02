@@ -9,7 +9,7 @@ public class TileScript : MonoBehaviour {
 
 	public bool selected = false;
 
-	public Transform currentObject;
+	public GameObject currentObject;
 	bool objectPlaced = false;
 
 	ISOGRID parentScript;
@@ -33,13 +33,15 @@ public class TileScript : MonoBehaviour {
 	}
 
 	// create object
-	public void buildObject(Transform newObject)
+	public void buildObject(GameObject newObject)
 	{
 		if (!objectPlaced)
 		{
-			currentObject = (Transform)Instantiate (newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity); 
+			GameObject test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+			this.currentObject = test;
+			//currentObject = test;
 			//newCell.name = string.Format("({0},{1})",x,y);
-			currentObject.parent = transform;
+			currentObject.transform.parent = this.transform;
 			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
 			objectPlaced = true;
 
@@ -47,6 +49,16 @@ public class TileScript : MonoBehaviour {
 			{
 				currentObject.renderer.material.color = tintObject;
 			}
+		}
+	}
+
+	public void deleteObject()
+	{
+		if(objectPlaced)
+		{
+			Destroy(this.currentObject);
+			objectPlaced = false;
+
 		}
 	}
 

@@ -12,7 +12,7 @@ public class ISOGRID : MonoBehaviour {
 	Color restoreTile = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 	//Color tintTile = new Color(178.0f, 178.0f, 178.0f, 255.0f);
 
-	public Transform newObject;
+	public GameObject newObject;
 
 	// Use this for initialization
 	void Start () {
@@ -24,15 +24,26 @@ public class ISOGRID : MonoBehaviour {
 		if (selectedTile != null)
 		{
 			// press button for stove
-			if(Input.GetKeyDown("space"))
-			{
+			if(Input.GetKeyDown(KeyCode.Space))
+			{ 
 				selectedTile.GetComponent<TileScript>().buildObject(newObject);
+			}
+
+			//DELETES STOVE
+			if(Input.GetKeyDown(KeyCode.G))
+			{
+				selectedTile.GetComponent<TileScript>().deleteObject();
 			}
 		}
 	}
 
+
+	//FUNction for set up the grid
 	void CreateGrid(){
+		//this gives us a grid to reference later
 		Grid = new Transform[(int)Size.x,(int)Size.y];
+
+		//Visually creates all the tiles and places them into grid
 		for (int y= 0; y < Size.y; y++) {
 			for (int x = 0; x < Size.x; x++) {
 				Transform newCell;
@@ -44,6 +55,7 @@ public class ISOGRID : MonoBehaviour {
 			}
 		}
 	}
+
 
 	public void selectThisTile(GameObject newTile)
 	{
@@ -62,7 +74,6 @@ public class ISOGRID : MonoBehaviour {
 		// a tile was previously selected and must be cleaned up
 		else
 		{
-				
 			selectedTile.renderer.material.color = restoreTile;
 			selectedTile.GetComponent<TileScript>().unHighlightObject();
 			selectedTile.GetComponent<TileScript>().selected = false;
