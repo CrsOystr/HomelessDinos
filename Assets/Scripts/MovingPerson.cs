@@ -6,7 +6,7 @@ public class MovingPerson : MonoBehaviour {
 	ISOGRID parentScript;
 
 	public void moveLeft(){
-		if (parentScript.Logic_Grid[(int)(personLocation.x - 1),(int)(personLocation.y)] == null)
+		if (parentScript.Logic_Grid[(int)(personLocation.x - 1),(int)(personLocation.y)].passable)
 		{
 			Vector3 leftVect = new Vector3(-1f,-.5f,0f);
 			transform.Translate(leftVect);
@@ -15,7 +15,7 @@ public class MovingPerson : MonoBehaviour {
 
 	}
 	public void moveUp(){
-		if (parentScript.Logic_Grid[(int)(personLocation.x),(int)(personLocation.y + 1)] == null)
+		if (parentScript.Logic_Grid[(int)(personLocation.x),(int)(personLocation.y + 1)].passable)
 		{
 			Vector3 upVect = new Vector3(-1f,.5f,0f);
 			transform.Translate(upVect);
@@ -24,7 +24,7 @@ public class MovingPerson : MonoBehaviour {
 	}
 
 	public void moveRight(){
-		if (parentScript.Logic_Grid[(int)(personLocation.x + 1),(int)(personLocation.y)] == null)
+		if (parentScript.Logic_Grid[(int)(personLocation.x + 1),(int)(personLocation.y)].passable)
 		{
 			Vector3 rightVect = new Vector3(1f,.5f,0f);
 			transform.Translate(rightVect);
@@ -32,7 +32,7 @@ public class MovingPerson : MonoBehaviour {
 		}
 	}
 	public void moveDown(){
-		if (parentScript.Logic_Grid[(int)(personLocation.x),(int)(personLocation.y-1)] == null)
+		if (parentScript.Logic_Grid[(int)(personLocation.x),(int)(personLocation.y-1)].passable)
 		{
 			Vector3 downVect = new Vector3(1f,-.5f,0f);
 			transform.Translate(downVect);
@@ -48,8 +48,10 @@ public class MovingPerson : MonoBehaviour {
 		//StartPosition.x = Mathf.Round(StartPosition.x);
 		//StartPosition.y = Mathf.Round(StartPosition.y * 2) / 2;
 		//transform.position = StartPosition;
+
+		//SETS CORRECT LOCATION BASED ON OBJJECT SSETTINGS
 		Vector3 StartPosition = new Vector3((personLocation.x - personLocation.y) * 1 ,
-		                                    (personLocation.x + personLocation.y)*(.5F) + 1 ,0);
+		                                   (personLocation.x + personLocation.y)*(.5F) + 1f ,0);
 
 		transform.position = StartPosition;
 	}

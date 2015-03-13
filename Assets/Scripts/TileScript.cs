@@ -31,20 +31,29 @@ public class TileScript : MonoBehaviour {
 	}
 
 	// create object
-	public void buildObject(GameObject newObject)
+	public void buildObject(GameObject newObject, bool tile)
 	{
 		if (!objectPlaced)
 		{
-			GameObject test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+			GameObject test;
+			if (!tile){
+				test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+			}
+			else{
+				test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject; 
+			}
+
 			this.currentObject = test;
 			//currentObject = test;
 			//newCell.name = string.Format("({0},{1})",x,y);
 			currentObject.transform.parent = this.transform;
-			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
+			currentObject.renderer.sortingOrder = 5;
+		
 			objectPlaced = true;
 
 			//ADDED THIS EXPERIMENTING HOW TO DO LOGIC
-			this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(false);
+			this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(true);
+			Debug.Log((int)this.Position.x);
 
 			if (selected)
 			{

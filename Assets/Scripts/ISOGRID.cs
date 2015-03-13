@@ -17,6 +17,7 @@ public class ISOGRID : MonoBehaviour {
 	//Color tintTile = new Color(178.0f, 178.0f, 178.0f, 255.0f);
 
 	public GameObject newObject;
+	public GameObject pathObject;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +31,12 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-				selectedTile.GetComponent<TileScript>().buildObject(newObject);
+				selectedTile.GetComponent<TileScript>().buildObject(newObject, false);
+			}
+
+			if(Input.GetKeyDown(KeyCode.P))
+			{ 
+				selectedTile.GetComponent<TileScript>().buildObject(pathObject, true);
 			}
 
 			//DELETES STOVE
@@ -57,6 +63,8 @@ public class ISOGRID : MonoBehaviour {
 				newCell.parent = transform;
 				newCell.GetComponent<TileScript>().Position = new Vector2(x,y);
 				Grid[x,y] = newCell;
+				GameBuilding standTile = new GameBuilding(false);
+				Logic_Grid[x,y] = standTile;
 			}
 		}
 	}
