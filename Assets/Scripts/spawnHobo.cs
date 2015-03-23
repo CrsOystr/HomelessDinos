@@ -25,7 +25,7 @@ public class spawnHobo : MonoBehaviour {
 		yield return new WaitForSeconds(2.0f);
 		while(true)
 		{
-			GameObject test = Instantiate(hoboObject, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+			GameObject test = Instantiate(hoboObject, new Vector3 (transform.position.x, transform.position.y+0.5f, 0), Quaternion.identity) as GameObject;
 			test.GetComponent<HomelessAI>().gridPosition.x = parentScript.Position.x;
 			test.GetComponent<HomelessAI>().gridPosition.y = parentScript.Position.y;
 			test.GetComponent<HomelessAI>().gridScript = parentScript.parentScript;

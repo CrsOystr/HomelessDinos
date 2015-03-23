@@ -35,12 +35,12 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-				selectedTile.GetComponent<TileScript>().buildObject(newObject, false);
+				selectedTile.GetComponent<TileScript>().buildObject(newObject, "food");
 			}
 			// get path
 			if(Input.GetKeyDown(KeyCode.P))
 			{ 
-				selectedTile.GetComponent<TileScript>().buildObject(pathObject, true);
+				selectedTile.GetComponent<TileScript>().buildObject(pathObject, "path");
 			}
 
 			//DELETES ANYTHING
@@ -73,8 +73,8 @@ public class ISOGRID : MonoBehaviour {
 		}
 
 		// create enterTile and exitTile
-		Grid[0,(int)Size.y-3].GetComponent<TileScript>().buildObject(enterTilePref, true);
-		Grid[0,2].GetComponent<TileScript>().buildObject(exitTilePref, true);
+		Grid[0,(int)Size.y-3].GetComponent<TileScript>().buildObject(enterTilePref, "path");
+		Grid[0,2].GetComponent<TileScript>().buildObject(exitTilePref, "path");
 
 	}
 
@@ -110,6 +110,7 @@ public class ISOGRID : MonoBehaviour {
 		}
 	}
 
+	// finds nearby paths and returns a list
 	public List<Vector2> nearbyPaths(int x, int y)
 	{
 		List<Vector2> returnList = new List<Vector2>();
@@ -160,5 +161,68 @@ public class ISOGRID : MonoBehaviour {
         
         return returnList;
 	}
-
+	// finds the nearby need object specified and returns a list
+	public List<Vector2> nearbyNeeds(int x, int y, string need)
+	{
+		List<Vector2> returnList = new List<Vector2>();
+		
+		//print (x);
+		//print (y);
+		
+		if (x>0)
+		{
+			if(Grid[x-1,y].GetComponent<TileScript>().objectPlaced)
+			{
+				if (Grid[x-1,y].GetComponent<TileScript>().currentObject.name==need)
+				{
+					if(!Grid[x-1,y].GetComponent<TileScript>().currentObject.GetComponent<needObjectScript>().inUse)
+					{
+						returnList.Add(new Vector2(x-1,y));
+					}
+				}
+			}
+		}
+		if (x<Size.x)
+		{
+			if(Grid[x+1,y].GetComponent<TileScript>().objectPlaced)
+			{
+				if (Grid[x+1,y].GetComponent<TileScript>().currentObject.name==need)
+				{	
+					if(!Grid[x+1,y].GetComponent<TileScript>().currentObject.GetComponent<needObjectScript>().inUse)
+                    {
+						returnList.Add(new Vector2(x+1,y));
+					}
+				}
+			}
+		}
+		if (y>0)
+		{
+			if(Grid[x,y-1].GetComponent<TileScript>().objectPlaced)
+			{
+				if (Grid[x,y-1].GetComponent<TileScript>().currentObject.name==need)
+				{
+					if(!Grid[x,y-1].GetComponent<TileScript>().currentObject.GetComponent<needObjectScript>().inUse)
+                    {
+						returnList.Add(new Vector2(x,y-1));
+					}
+				}
+			}
+		}
+		if (y<Size.y)
+        {
+            if(Grid[x,y+1].GetComponent<TileScript>().objectPlaced)
+            {
+                if (Grid[x,y+1].GetComponent<TileScript>().currentObject.name==need)
+                {
+					if(!Grid[x,y+1].GetComponent<TileScript>().currentObject.GetComponent<needObjectScript>().inUse)
+                    {
+                    	returnList.Add(new Vector2(x,y+1));
+					}
+                }
+            }
+        }
+        
+        return returnList;
+    }
+    
 }

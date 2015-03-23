@@ -31,18 +31,15 @@ public class TileScript : MonoBehaviour {
 	}
 
 	// create object
-	public void buildObject(GameObject newObject, bool tile)
+	public void buildObject(GameObject newObject, string type)
 	{
 		if (!objectPlaced)
 		{
 			GameObject test;
-			if (!tile){
-				test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
-			}
-			else{
-				test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject; 
-				test.name = "path";
-			}
+
+			test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+			test.name = type;
+
 
 			this.currentObject = test;
 			//currentObject = test;
