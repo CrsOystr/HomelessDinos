@@ -52,10 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6063638c997a1484ca90b9ec1d383ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacents: []
+  parentScript: {fileID: 0}
   Position: {x: 0, y: 0}
   selected: 0
   currentObject: {fileID: 0}
+  objectPlaced: 0
 --- !u!212 &21221808
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7314be765ed5ef34dbf539469f2c2314, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b8f4e56f73a72ff46a8f6d3d50483fb9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
