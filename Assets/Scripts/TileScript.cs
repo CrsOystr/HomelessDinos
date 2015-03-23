@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class TileScript : MonoBehaviour {
-	ISOGRID parentScript;
+	public ISOGRID parentScript;
 
 	public Vector2 Position;
 	
@@ -47,13 +47,14 @@ public class TileScript : MonoBehaviour {
 			//currentObject = test;
 			//newCell.name = string.Format("({0},{1})",x,y);
 			currentObject.transform.parent = this.transform;
-			currentObject.renderer.sortingOrder = 5;
+			// for properly layering objects
+			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
 		
 			objectPlaced = true;
 
 			//ADDED THIS EXPERIMENTING HOW TO DO LOGIC
-			this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(true);
-			Debug.Log((int)this.Position.x);
+			//this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(true);
+			//Debug.Log((int)this.Position.x);
 
 			if (selected)
 			{

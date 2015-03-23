@@ -19,6 +19,9 @@ public class ISOGRID : MonoBehaviour {
 	public GameObject newObject;
 	public GameObject pathObject;
 
+	public GameObject enterTilePref;
+	public GameObject exitTilePref;
+
 	// Use this for initialization
 	void Start () {
 		CreateGrid ();
@@ -33,13 +36,13 @@ public class ISOGRID : MonoBehaviour {
 			{ 
 				selectedTile.GetComponent<TileScript>().buildObject(newObject, false);
 			}
-
+			// get path
 			if(Input.GetKeyDown(KeyCode.P))
 			{ 
 				selectedTile.GetComponent<TileScript>().buildObject(pathObject, true);
 			}
 
-			//DELETES STOVE
+			//DELETES ANYTHING
 			if(Input.GetKeyDown(KeyCode.G))
 			{
 				selectedTile.GetComponent<TileScript>().deleteObject();
@@ -67,6 +70,11 @@ public class ISOGRID : MonoBehaviour {
 				Logic_Grid[x,y] = standTile;
 			}
 		}
+
+		// create enterTile and exitTile
+		Grid[0,(int)Size.y-3].GetComponent<TileScript>().buildObject(enterTilePref, true);
+		Grid[0,2].GetComponent<TileScript>().buildObject(exitTilePref, true);
+
 	}
 
 
