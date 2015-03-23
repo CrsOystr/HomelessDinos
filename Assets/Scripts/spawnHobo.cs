@@ -22,7 +22,7 @@ public class spawnHobo : MonoBehaviour {
 	// spawn a hobo every so often
 	IEnumerator spawnHobos()
 	{
-		//yield return new WaitForSeconds(5.0f);
+		yield return new WaitForSeconds(2.0f);
 		while(true)
 		{
 			GameObject test = Instantiate(hoboObject, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;

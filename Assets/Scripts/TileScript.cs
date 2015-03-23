@@ -9,7 +9,7 @@ public class TileScript : MonoBehaviour {
 	
 	public bool selected = false;
 	public GameObject currentObject;
-	bool objectPlaced = false;
+	public bool objectPlaced = false;
 
 
 	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
@@ -41,6 +41,7 @@ public class TileScript : MonoBehaviour {
 			}
 			else{
 				test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject; 
+				test.name = "path";
 			}
 
 			this.currentObject = test;

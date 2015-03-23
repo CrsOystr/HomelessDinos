@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HomelessAI : MonoBehaviour 
 {
@@ -30,6 +31,7 @@ public class HomelessAI : MonoBehaviour
 		hungerLevel = Random.Range(0,3);
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
+
 	}
 	
 	// Update is called once per frame
@@ -52,8 +54,36 @@ public class HomelessAI : MonoBehaviour
 			//check nearby tiles for free need
 
 			//check nearby tiles for unwalked path
+			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
+			foreach(Vector2 tile in pathList)
+			{
+				//print (tile.x);
+				//print (tile.y);
+				//print (gridPosition.x);
+				//print (gridPosition.y);
+				//print ("got here");
+				if (tile.x == previousTile.x && tile.y == previousTile.y)
+				{
+				}
+				else
+				{
+					// move here
+					previousTile.x = gridPosition.x;
+					previousTile.y = gridPosition.y;
+					transform.position = new Vector3(gridScript.Grid[(int)tile.x,(int)tile.y].transform.position.x, gridScript.Grid[(int)tile.x,(int)tile.y].transform.position.y,transform.position.z);
 
+					gridPosition.x = tile.x;
+					gridPosition.y = tile.y;
+
+					currentTime = 0.0f;
+					// MIGHT NEED TO REWORK RETURN
+					return;
+				}
+			}
 			//walk previously walked path
+
+
+			currentTime = 0.0f;
 		}
 
 

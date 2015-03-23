@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ISOGRID : MonoBehaviour {
 
@@ -107,6 +108,57 @@ public class ISOGRID : MonoBehaviour {
 			selectedTile.renderer.material.color = tintTile;
 			selectedTile.GetComponent<TileScript>().highlightObject();
 		}
+	}
+
+	public List<Vector2> nearbyPaths(int x, int y)
+	{
+		List<Vector2> returnList = new List<Vector2>();
+
+		//print (x);
+		//print (y);
+
+		if (x>0)
+		{
+			if(Grid[x-1,y].GetComponent<TileScript>().objectPlaced)
+			{
+				if (Grid[x-1,y].GetComponent<TileScript>().currentObject.name=="path")
+				{
+					returnList.Add(new Vector2(x-1,y));
+				}
+			}
+		}
+		if (x<Size.x)
+		{
+			if(Grid[x+1,y].GetComponent<TileScript>().objectPlaced)
+            {
+				if (Grid[x+1,y].GetComponent<TileScript>().currentObject.name=="path")
+				{
+					returnList.Add(new Vector2(x+1,y));
+	            }
+			}
+        }
+		if (y>0)
+		{
+			if(Grid[x,y-1].GetComponent<TileScript>().objectPlaced)
+            {
+				if (Grid[x,y-1].GetComponent<TileScript>().currentObject.name=="path")
+				{
+					returnList.Add(new Vector2(x,y-1));
+				}
+			}
+		}
+		if (y<Size.y)
+		{
+			if(Grid[x,y+1].GetComponent<TileScript>().objectPlaced)
+            {
+				if (Grid[x,y+1].GetComponent<TileScript>().currentObject.name=="path")
+	            {
+	                returnList.Add(new Vector2(x,y+1));
+	            }
+			}
+        }
+        
+        return returnList;
 	}
 
 }
