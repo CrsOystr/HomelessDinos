@@ -23,18 +23,33 @@ public class HomelessAI : MonoBehaviour
 	bool usingObject = false;
 	GameObject objectInUse;
 
+	GameObject pressingNeed;
+	bool icon = true;
+
+	public GameObject iconFood;
+
 	// Use this for initialization
 	void Start () 
 	{
-		hungerLevel = Random.Range(0,3);
+		hungerLevel = Random.Range(1,3);
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
 
+		pressingNeed = Instantiate(iconFood, new Vector3 (transform.position.x, transform.position.y+2.3f, 0), Quaternion.identity) as GameObject; 
+		pressingNeed.transform.parent = transform;
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+
+		if(hungerLevel == 0 && icon == true)
+		{
+			Destroy(this.pressingNeed);
+			icon = false;
+
+		}
+
 		if(usingObject)
 		{
 			if (!objectInUse.GetComponent<needObjectScript>().inUse)

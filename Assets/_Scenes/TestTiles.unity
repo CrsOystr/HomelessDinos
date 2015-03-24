@@ -306,6 +306,7 @@ MonoBehaviour:
   gridScript: {fileID: 0}
   previousTile: {x: 0, y: 0}
   hungerLevel: 0
+  iconFood: {fileID: 100000, guid: 55c68513b3026204fb46d6f93e7b47f0, type: 2}
 --- !u!61 &987488300
 BoxCollider2D:
   m_ObjectHideFlags: 0
