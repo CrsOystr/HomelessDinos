@@ -46,7 +46,14 @@ public class TileScript : MonoBehaviour {
 			//newCell.name = string.Format("({0},{1})",x,y);
 			currentObject.transform.parent = this.transform;
 			// for properly layering objects
-			currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
+			if (type == "path")
+			{
+				currentObject.renderer.sortingOrder = 1;
+			}
+			else
+			{
+				currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
+			}
 		
 			objectPlaced = true;
 

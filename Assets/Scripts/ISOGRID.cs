@@ -23,6 +23,9 @@ public class ISOGRID : MonoBehaviour {
 	public GameObject enterTilePref;
 	public GameObject exitTilePref;
 
+	public GameObject leftBackWall;
+	public GameObject rightBackWall;
+
 	// Use this for initialization
 	void Start () {
 		CreateGrid ();
@@ -75,6 +78,25 @@ public class ISOGRID : MonoBehaviour {
 		// create enterTile and exitTile
 		Grid[0,(int)Size.y-3].GetComponent<TileScript>().buildObject(enterTilePref, "path");
 		Grid[0,2].GetComponent<TileScript>().buildObject(exitTilePref, "path");
+
+
+		// create back left walls
+		// use max y, loop on x
+		for (int x = 0; x < Size.x; x++)
+		{
+			GameObject wall;
+			wall = Instantiate (leftBackWall, new Vector3 (((x - Size.y) * 1)+0.5f , ((x + Size.y)*(.5F))-0.5f, 0), Quaternion.identity) as GameObject;
+			wall.transform.parent = transform;
+		}
+
+		// create back right walls
+		// use max x, loop on y
+		for (int y = 0; y < Size.y; y++)
+		{
+			GameObject wall;
+			wall = Instantiate (rightBackWall, new Vector3 (((Size.x - y) * 1)-0.5f , ((Size.x + y)*(.5F))-0.5f, 0), Quaternion.identity) as GameObject;
+			wall.transform.parent = transform;
+		}
 
 	}
 

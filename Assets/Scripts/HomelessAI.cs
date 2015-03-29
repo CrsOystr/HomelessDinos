@@ -82,18 +82,26 @@ public class HomelessAI : MonoBehaviour
 		currentTime += Time.deltaTime;
 		if (currentTime >= waitTime)
 		{
-			//check nearby tiles for free need
+			// if hungry, find food
 			List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "food");
 			foreach(Vector2 obj in objList)
 			{
-				if(hungerLevel != 0)
+				if(hungerLevel != 0 && !usingObject)
 				{
+					//check nearby tiles for free need
 					//use this item
 					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
 					objectInUse.GetComponent<needObjectScript>().inUse = true;
 					usingObject = true;
+					break;
 				}
 			}
+			// if sleepy, find sleep
+			
+			// if dirty, find hygiene
+			
+			// if sick, find medical
+
 			//check nearby tiles for unwalked path
 			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
 			foreach(Vector2 tile in pathList)

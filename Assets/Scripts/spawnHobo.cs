@@ -29,6 +29,7 @@ public class spawnHobo : MonoBehaviour {
 			test.GetComponent<HomelessAI>().gridPosition.x = parentScript.Position.x;
 			test.GetComponent<HomelessAI>().gridPosition.y = parentScript.Position.y;
 			test.GetComponent<HomelessAI>().gridScript = parentScript.parentScript;
+			test.name = "hobo";
 			yield return new WaitForSeconds(7.0f);
 
 		}
