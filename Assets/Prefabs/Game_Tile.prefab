@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21241594}
   - 114: {fileID: 11417198}
   - 61: {fileID: 6100000}
+  - 114: {fileID: 11444290}
   m_Layer: 0
   m_Name: Game_Tile
   m_TagString: Untagged
@@ -52,9 +53,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6063638c997a1484ca90b9ec1d383ecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Adjacents: []
+  parentScript: {fileID: 0}
   Position: {x: 0, y: 0}
   selected: 0
+  currentObject: {fileID: 0}
+  objectPlaced: 0
+--- !u!114 &11444290
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 141594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89b6a0363cdcb74f8e3ee31e7564bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomSprites:
+  - {fileID: 21300000, guid: 1a30537a5b40a06438e14a0cd53be8dd, type: 3}
+  - {fileID: 21300000, guid: 961a93a35a931cd4b85ec4eab4efb8d9, type: 3}
+  - {fileID: 21300000, guid: b8f4e56f73a72ff46a8f6d3d50483fb9, type: 3}
+  - {fileID: 21300000, guid: 8801f82f600f8404d8747d5108aa8d01, type: 3}
+  - {fileID: 21300000, guid: ee2e90620159cdd4e9b875e284fcee50, type: 3}
 --- !u!212 &21241594
 SpriteRenderer:
   m_ObjectHideFlags: 1

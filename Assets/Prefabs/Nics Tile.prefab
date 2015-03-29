@@ -11,6 +11,7 @@ GameObject:
   - 212: {fileID: 21221808}
   - 114: {fileID: 11441802}
   - 61: {fileID: 6170576}
+  - 114: {fileID: 11426278}
   m_Layer: 0
   m_Name: Nics Tile
   m_TagString: Untagged
@@ -41,6 +42,23 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1}
   m_Center: {x: 0, y: 0}
+--- !u!114 &11426278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a89b6a0363cdcb74f8e3ee31e7564bb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomSprites:
+  - {fileID: 21300000, guid: 1a30537a5b40a06438e14a0cd53be8dd, type: 3}
+  - {fileID: 21300000, guid: 961a93a35a931cd4b85ec4eab4efb8d9, type: 3}
+  - {fileID: 21300000, guid: b8f4e56f73a72ff46a8f6d3d50483fb9, type: 3}
+  - {fileID: 21300000, guid: 8801f82f600f8404d8747d5108aa8d01, type: 3}
+  - {fileID: 21300000, guid: ee2e90620159cdd4e9b875e284fcee50, type: 3}
 --- !u!114 &11441802
 MonoBehaviour:
   m_ObjectHideFlags: 1
