@@ -17,7 +17,7 @@ public class HomelessAI : MonoBehaviour
 
 	Vector3 startLerp;
 	Vector3 endLerp;
-	float lerpTime = 3.0f;
+	//float lerpTime = 3.0f;
 	float lerpPos = 1.0f;
 
 	bool usingObject = false;
@@ -34,6 +34,7 @@ public class HomelessAI : MonoBehaviour
 		hungerLevel = Random.Range(1,3);
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
+		waitTime = Random.Range(2.0f,3.0f);
 
 		pressingNeed = Instantiate(iconFood, new Vector3 (transform.position.x, transform.position.y+2.3f, 0), Quaternion.identity) as GameObject; 
 		pressingNeed.transform.parent = transform;
@@ -64,7 +65,7 @@ public class HomelessAI : MonoBehaviour
 			// transition between tiles
 			if (lerpPos < 1.0f)
 			{
-				lerpPos += Time.deltaTime/lerpTime;
+				lerpPos += Time.deltaTime/waitTime;
 				transform.position = Vector3.Lerp(startLerp,endLerp,lerpPos);
 	        }
 

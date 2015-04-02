@@ -7,9 +7,13 @@ public class spawnHobo : MonoBehaviour {
 
 	public GameObject hoboObject;
 
+	scoreScript repScript;
+
 	// Use this for initialization
 	void Start () {
 		parentScript = transform.parent.GetComponent<TileScript>();
+
+		repScript = GameObject.Find("ScoreKeeper").GetComponent<scoreScript>();
 
 		StartCoroutine (spawnHobos());
 	}
@@ -30,7 +34,7 @@ public class spawnHobo : MonoBehaviour {
 			test.GetComponent<HomelessAI>().gridPosition.y = parentScript.Position.y;
 			test.GetComponent<HomelessAI>().gridScript = parentScript.parentScript;
 			test.name = "hobo";
-			yield return new WaitForSeconds(7.0f);
+			yield return new WaitForSeconds(10.0f-(0.009f*(float)repScript.reputation));
 
 		}
 	}

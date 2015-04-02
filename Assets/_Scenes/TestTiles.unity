@@ -202,6 +202,50 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 251438571}
+--- !u!1 &303314938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 303314940}
+  - 114: {fileID: 303314939}
+  m_Layer: 0
+  m_Name: ScoreKeeper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &303314939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 303314938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f0d7bdc1c9c8654f8e156119c9b8b18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currency: 4000
+  reputation: 10
+  curText: {fileID: 251438573}
+  repText: {fileID: 390298064}
+  foodStorage: 0
+--- !u!4 &303314940
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 303314938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .264141023, y: -.623274446, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
 --- !u!1 &390298062
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +342,7 @@ MonoBehaviour:
   CellPrefab: {fileID: 421808, guid: 9514735f6b9f39a42b227e771f4cc27a, type: 2}
   Size: {x: 12, y: 12, z: 0}
   selectedTile: {fileID: 0}
+  moneyScript: {fileID: 303314939}
   newObject: {fileID: 100000, guid: ac365c8e95bdae744a1060e1c847bc57, type: 2}
   pathObject: {fileID: 159718, guid: 42f16bc815f099e4097295cea9212d16, type: 2}
   enterTilePref: {fileID: 100000, guid: 43b7a4e26733b884fbd2e137c0f96f47, type: 2}
@@ -496,7 +541,7 @@ Canvas:
   m_GameObject: {fileID: 1266067594}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 871021303}
   m_PlaneDistance: 1
   m_PixelPerfect: 1

@@ -11,6 +11,8 @@ public class ISOGRID : MonoBehaviour {
 
 	public Transform[,] Grid;
 	public GameBuilding[,] Logic_Grid;
+
+	public scoreScript moneyScript;
 	
 
 	Color tintTile = new Color(0.7f, 0.7f, 0.7f, 1.0f);
@@ -38,7 +40,11 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-				selectedTile.GetComponent<TileScript>().buildObject(newObject, "food");
+				if (!selectedTile.GetComponent<TileScript>().objectPlaced && moneyScript.currency >= newObject.GetComponent<needObjectScript>().cost)
+				{
+					selectedTile.GetComponent<TileScript>().buildObject(newObject, "food");
+					moneyScript.currency -= newObject.GetComponent<needObjectScript>().cost;
+				}
 			}
 			// get path
 			if(Input.GetKeyDown(KeyCode.P))

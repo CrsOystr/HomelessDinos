@@ -11,6 +11,8 @@ public class needObjectScript : MonoBehaviour {
 	float needTime = 10.0f;
 	float currentTime = 0.0f;
 
+	public int cost;
+
 	// Use this for initialization
 	void Start () {
 	
