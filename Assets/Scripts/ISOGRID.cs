@@ -131,6 +131,7 @@ public class ISOGRID : MonoBehaviour {
 			selectedTile.renderer.material.color = restoreTile;
 			selectedTile.GetComponent<TileScript>().unHighlightObject();
 			selectedTile.GetComponent<TileScript>().selected = false;
+			selectedTile.GetComponent<TileScript>().deleteMenu();
 
 			selectedTile = newTile;
 
@@ -141,6 +142,8 @@ public class ISOGRID : MonoBehaviour {
 			selectedTile.GetComponent<TileScript>().highlightObject();
 		}
 	}
+
+
 
 	// finds nearby paths and returns a list
 	public List<Vector2> nearbyPaths(int x, int y)
