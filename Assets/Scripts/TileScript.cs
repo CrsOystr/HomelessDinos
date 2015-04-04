@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+//This class creates objects and represents a specific tile. it checks for mouse clicks and interaction
+
 public class TileScript : MonoBehaviour {
 	public ISOGRID parentScript;
 

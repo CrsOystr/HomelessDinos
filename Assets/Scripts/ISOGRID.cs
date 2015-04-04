@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
+//The main logic unit for the game. holds lots of stfuffffff
 public class ISOGRID : MonoBehaviour {
 
 	public Transform CellPrefab;
@@ -81,9 +83,11 @@ public class ISOGRID : MonoBehaviour {
 			}
 		}
 
+		int enter = Random.Range(2, (int)Size.y-1);
+		int exit = Random.Range (2, (int)Size.x-1);
 		// create enterTile and exitTile
-		Grid[0,(int)Size.y-3].GetComponent<TileScript>().buildObject(enterTilePref, "path");
-		Grid[0,2].GetComponent<TileScript>().buildObject(exitTilePref, "path");
+		Grid[0,enter].GetComponent<TileScript>().buildObject(enterTilePref, "path");
+		Grid[exit,0].GetComponent<TileScript>().buildObject(exitTilePref, "path");
 
 
 		// create back left walls

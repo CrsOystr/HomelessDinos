@@ -6,9 +6,11 @@ public class scoreScript : MonoBehaviour {
 
 	public int currency;
 	public int reputation;
+	public int day;
 
 	public Text curText;
 	public Text repText;
+	public Text dayText;
 
 	public int foodStorage;
 
@@ -21,5 +23,6 @@ public class scoreScript : MonoBehaviour {
 	void Update () {
 		curText.text = currency.ToString();
 		repText.text = reputation.ToString();
+		dayText.text = day.ToString();
 	}
 }

@@ -12,15 +12,17 @@ public class spawnHobo : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		parentScript = transform.parent.GetComponent<TileScript>();
-
 		repScript = GameObject.Find("ScoreKeeper").GetComponent<scoreScript>();
 
-		StartCoroutine (spawnHobos());
+		//StartCoroutine (spawnHobos());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+	}
+	public void startHobos(){
+		StartCoroutine (spawnHobos());
 	}
 
 	// spawn a hobo every so often
