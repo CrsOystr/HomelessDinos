@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 //This class creates objects and represents a specific tile. it checks for mouse clicks and interaction
 
@@ -12,6 +13,7 @@ public class TileScript : MonoBehaviour {
 	public bool selected = false;
 	public GameObject currentObject;
 	public bool objectPlaced = false;
+	public GameObject pathMenu;
 
 
 	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
@@ -29,7 +31,8 @@ public class TileScript : MonoBehaviour {
 
 	// this is for detecting player clicking tile
 	void OnMouseDown() {
-		parentScript.selectThisTile(gameObject);
+		parentScript.selectThisTile (gameObject);
+		GameObject pathTest = Instantiate (pathMenu,new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 	}
 
 	// create object

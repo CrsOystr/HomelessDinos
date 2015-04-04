@@ -12,6 +12,7 @@ GameObject:
   - 114: {fileID: 11441802}
   - 61: {fileID: 6170576}
   - 114: {fileID: 11426278}
+  - 60: {fileID: 6021424}
   m_Layer: 0
   m_Name: Nics Tile
   m_TagString: Untagged
@@ -26,18 +27,37 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.0723980218, y: -.627449572, z: 0}
+  m_LocalPosition: {x: -4.83245325, y: -7.22032785, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!60 &6021424
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121808}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Poly:
+    m_Paths:
+    - - {x: -.0796618462, y: .5}
+      - {x: -.999999523, y: .024846077}
+      - {x: -1, y: -.0289444923}
+      - {x: -.049179554, y: -.488217354}
+      - {x: .0737700462, y: -.488217354}
+      - {x: .982325554, y: -.0484108925}
+      - {x: .982325792, y: .0466184616}
+      - {x: -.0274085999, y: .523565769}
 --- !u!61 &6170576
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 121808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Size: {x: 1, y: 1}
@@ -75,6 +95,7 @@ MonoBehaviour:
   selected: 0
   currentObject: {fileID: 0}
   objectPlaced: 0
+  pathMenu: {fileID: 194856, guid: 7eba2d5fe36f71647abe3105cc2d771e, type: 2}
 --- !u!212 &21221808
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -16,7 +16,7 @@ public class scoreScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		day = 1;
 	}
 	
 	// Update is called once per frame
