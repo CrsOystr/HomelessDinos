@@ -175,7 +175,7 @@ public class ISOGRID : MonoBehaviour {
 		{
 			if(Grid[x-1,y].GetComponent<TileScript>().objectPlaced)
 			{
-				if (Grid[x-1,y].GetComponent<TileScript>().currentObject.name=="path")
+				if (Grid[x-1,y].GetComponent<TileScript>().currentObject.name=="path" || Grid[x-1,y].GetComponent<TileScript>().currentObject.name=="spawn")
 				{
 					returnList.Add(new Vector2(x-1,y));
 				}
@@ -185,7 +185,7 @@ public class ISOGRID : MonoBehaviour {
 		{
 			if(Grid[x+1,y].GetComponent<TileScript>().objectPlaced)
             {
-				if (Grid[x+1,y].GetComponent<TileScript>().currentObject.name=="path")
+				if (Grid[x+1,y].GetComponent<TileScript>().currentObject.name=="path" || Grid[x+1,y].GetComponent<TileScript>().currentObject.name=="spawn")
 				{
 					returnList.Add(new Vector2(x+1,y));
 	            }
@@ -195,7 +195,7 @@ public class ISOGRID : MonoBehaviour {
 		{
 			if(Grid[x,y-1].GetComponent<TileScript>().objectPlaced)
             {
-				if (Grid[x,y-1].GetComponent<TileScript>().currentObject.name=="path")
+				if (Grid[x,y-1].GetComponent<TileScript>().currentObject.name=="path" || Grid[x,y-1].GetComponent<TileScript>().currentObject.name=="spawn")
 				{
 					returnList.Add(new Vector2(x,y-1));
 				}
@@ -205,7 +205,7 @@ public class ISOGRID : MonoBehaviour {
 		{
 			if(Grid[x,y+1].GetComponent<TileScript>().objectPlaced)
             {
-				if (Grid[x,y+1].GetComponent<TileScript>().currentObject.name=="path")
+				if (Grid[x,y+1].GetComponent<TileScript>().currentObject.name=="path" || Grid[x,y+1].GetComponent<TileScript>().currentObject.name=="spawn")
 	            {
 	                returnList.Add(new Vector2(x,y+1));
 	            }
