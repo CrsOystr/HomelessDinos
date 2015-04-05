@@ -99,16 +99,12 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 
 
 	// create object
-	public void buildObject(GameObject newObject, string type)
+	public void buildObject(GameObject addObject, string type)
 	{
-		if (!objectPlaced)
+		if (!objectPlaced && type == "path" || type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
 		{
-			GameObject test;
-
-			test = Instantiate(newObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+			GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
 			test.name = type;
-
-
 			this.currentObject = test;
 			//currentObject = test;
 			//newCell.name = string.Format("({0},{1})",x,y);
@@ -126,13 +122,12 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 			objectPlaced = true;
 
 			deleteMenu();
-			//ADDED THIS EXPERIMENTING HOW TO DO LOGIC
-			//this.parentScript.Logic_Grid[(int)this.Position.x,(int)this.Position.y] = new GameBuilding(true);
-			//Debug.Log((int)this.Position.x);
-
 			if (selected)
 			{
 				currentObject.renderer.material.color = tintObject;
+			}
+			if(null != addObject.GetComponent<needObjectScript>()){
+				parentScript.moneyScript.currency -= addObject.GetComponent<needObjectScript>().cost;
 			}
 		}
 	}

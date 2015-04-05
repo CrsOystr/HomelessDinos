@@ -44,11 +44,7 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-				if (!selectedTile.GetComponent<TileScript>().objectPlaced && moneyScript.currency >= stoveObject.GetComponent<needObjectScript>().cost)
-				{
 					selectedTile.GetComponent<TileScript>().buildObject(stoveObject, "food");
-					moneyScript.currency -= stoveObject.GetComponent<needObjectScript>().cost;
-				}
 			}
 			// get path
 			if(Input.GetKeyDown(KeyCode.P))
