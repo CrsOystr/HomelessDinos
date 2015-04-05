@@ -94,8 +94,11 @@ MonoBehaviour:
   Position: {x: 0, y: 0}
   selected: 0
   currentObject: {fileID: 0}
+  currentMenu: {fileID: 0}
   objectPlaced: 0
   pathMenu: {fileID: 194856, guid: 7eba2d5fe36f71647abe3105cc2d771e, type: 2}
+  removeMenu: {fileID: 171186, guid: 7376963611fdee04ebd4ddeb74819fda, type: 2}
+  mainBuildMenu: {fileID: 134854, guid: 821b6237ee4ab9b40a07923d6f0c583a, type: 2}
 --- !u!212 &21221808
 SpriteRenderer:
   m_ObjectHideFlags: 1

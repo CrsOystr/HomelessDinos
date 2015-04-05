@@ -25,4 +25,9 @@ public class scoreScript : MonoBehaviour {
 		repText.text = reputation.ToString();
 		dayText.text = day.ToString();
 	}
+
+	//function to manually add one day.
+	public void addDay(){
+		day++;
+	}
 }

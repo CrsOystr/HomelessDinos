@@ -18,6 +18,8 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	private bool menuUp = false;
 	public GameObject pathMenu;
 	public GameObject removeMenu;
+	public GameObject mainBuildMenu;
+
 
 
 	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
@@ -32,34 +34,66 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	void Update () {
 	
 	}
-	
+
+	//THIS IS THE NEW WAY to implement on click function things
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		parentScript.selectThisTile (gameObject);
 		buildMenu(1);
 	}
 
-
-	// this is for detecting player clicking tile
+	// this is THE OLD METHOD for detecting player clicking tile
 	/*void OnMouseDown() {
 		parentScript.selectThisTile (gameObject);
 		GameObject pathTest = Instantiate (pathMenu,new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 	}*/
 
 	public void buildMenu (int type)
-	{
-		if (this.currentObject == null) {
-			GameObject test1 = Instantiate (pathMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
-			this.currentMenu = test1;
-			currentMenu.transform.parent = this.transform;
-			menuUp = true;
-		}else if (this.currentObject.name == "path") {
-			GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
-			this.currentMenu = test1;
-			currentMenu.transform.parent = this.transform;
-			menuUp = true;
+	{	
+		if (parentScript.moneyScript.day == 1) {
+			if (this.currentObject == null) {
+				GameObject test1 = Instantiate (pathMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+				Button b1 = test1.GetComponentInChildren<Button> ();
+				b1.onClick.AddListener (() => this.buildObject (parentScript.pathObject, "path"));
+				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				this.currentMenu = test1;
+				currentMenu.transform.parent = this.transform;
+				menuUp = true;
+			} else if (this.currentObject.name == "path") {
+				GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+				Button b1 = test1.GetComponentInChildren<Button> ();
+				b1.onClick.AddListener (() => this.deleteMenu ());
+				b1.onClick.AddListener (() => this.deleteObject ());
+				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				this.currentMenu = test1;
+				currentMenu.transform.parent = this.transform;
+				menuUp = true;
+			}
+		} else if (parentScript.moneyScript.day != 1) {
+			if (this.currentObject == null) {
+				GameObject test1 = Instantiate (mainBuildMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+				Button[] b2= test1.GetComponentsInChildren<Button>();
+				for (int i = 0; i < 4; i++)
+				{
+					b2[i].onClick.AddListener (() => parentScript.deselectThisTile ());
+				}
+				b2[0].onClick.AddListener (() => this.buildObject (parentScript.stoveObject, "food"));
+				//b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				this.currentMenu = test1;
+				currentMenu.transform.parent = this.transform;
+				menuUp = true;
+			} else if (this.currentObject.name == "path") {
+				GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+				Button b1 = test1.GetComponentInChildren<Button> ();
+				b1.onClick.AddListener (() => this.deleteMenu ());
+				b1.onClick.AddListener (() => this.deleteObject ());
+				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				this.currentMenu = test1;
+				currentMenu.transform.parent = this.transform;
+				menuUp = true;
+			}
 		}
-
+		
 	}
 
 
@@ -80,7 +114,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 			//newCell.name = string.Format("({0},{1})",x,y);
 			currentObject.transform.parent = this.transform;
 			// for properly layering objects
-			if (type == "path")
+			if (type == "path" || type == "spawn")
 			{
 				currentObject.renderer.sortingOrder = 1;
 			}

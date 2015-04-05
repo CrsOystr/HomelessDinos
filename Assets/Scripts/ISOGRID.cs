@@ -21,7 +21,7 @@ public class ISOGRID : MonoBehaviour {
 	Color restoreTile = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 	//Color tintTile = new Color(178.0f, 178.0f, 178.0f, 255.0f);
 
-	public GameObject newObject;
+	public GameObject stoveObject;
 	public GameObject pathObject;
 
 	public GameObject enterTilePref;
@@ -29,6 +29,8 @@ public class ISOGRID : MonoBehaviour {
 
 	public GameObject leftBackWall;
 	public GameObject rightBackWall;
+
+	private int enterTile;
 
 	// Use this for initialization
 	void Start () {
@@ -42,10 +44,10 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-				if (!selectedTile.GetComponent<TileScript>().objectPlaced && moneyScript.currency >= newObject.GetComponent<needObjectScript>().cost)
+				if (!selectedTile.GetComponent<TileScript>().objectPlaced && moneyScript.currency >= stoveObject.GetComponent<needObjectScript>().cost)
 				{
-					selectedTile.GetComponent<TileScript>().buildObject(newObject, "food");
-					moneyScript.currency -= newObject.GetComponent<needObjectScript>().cost;
+					selectedTile.GetComponent<TileScript>().buildObject(stoveObject, "food");
+					moneyScript.currency -= stoveObject.GetComponent<needObjectScript>().cost;
 				}
 			}
 			// get path
@@ -62,6 +64,16 @@ public class ISOGRID : MonoBehaviour {
 		}
 	}
 
+
+
+	//function moves day forward and clears selection
+	public void advanceDay(){
+		moneyScript.addDay ();
+		deselectThisTile ();
+		if (moneyScript.day == 3) {
+			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().startHobos();
+		}
+	}
 
 	//FUNction for set up the grid
 	void CreateGrid(){
@@ -83,11 +95,11 @@ public class ISOGRID : MonoBehaviour {
 			}
 		}
 
-		int enter = Random.Range(2, (int)Size.y-1);
+		enterTile = Random.Range(2, (int)Size.y-1);
 		int exit = Random.Range (2, (int)Size.x-1);
 		// create enterTile and exitTile
-		Grid[0,enter].GetComponent<TileScript>().buildObject(enterTilePref, "path");
-		Grid[exit,0].GetComponent<TileScript>().buildObject(exitTilePref, "path");
+		Grid[0,enterTile].GetComponent<TileScript>().buildObject(enterTilePref, "spawn");
+		Grid[exit,0].GetComponent<TileScript>().buildObject(exitTilePref, "spawn");
 
 
 		// create back left walls
@@ -140,6 +152,16 @@ public class ISOGRID : MonoBehaviour {
 			//selectedTile.renderer.material.SetColor("_TintColor", tintTile);
 			selectedTile.renderer.material.color = tintTile;
 			selectedTile.GetComponent<TileScript>().highlightObject();
+		}
+	}
+
+	public void deselectThisTile()
+	{
+		if (selectedTile != null) {
+			selectedTile.renderer.material.color = restoreTile;
+			selectedTile.GetComponent<TileScript> ().unHighlightObject ();
+			selectedTile.GetComponent<TileScript> ().selected = false;
+			selectedTile.GetComponent<TileScript> ().deleteMenu ();
 		}
 	}
 
