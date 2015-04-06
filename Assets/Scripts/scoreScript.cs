@@ -15,6 +15,8 @@ public class scoreScript : MonoBehaviour {
 	public int foodStorage;
 
 	public GameObject endScreen;
+	public GameObject blockingPanel;
+
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +32,8 @@ public class scoreScript : MonoBehaviour {
 		if (currency < 0)
 		{
 			endScreen.SetActive(true);
+			blockingPanel.SetActive(true);
+
 		}
 	}
 

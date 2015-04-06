@@ -37,6 +37,7 @@ public class spawnHobo : MonoBehaviour {
 			test.GetComponent<HomelessAI>().gridScript = parentScript.parentScript;
 			test.GetComponent<HomelessAI>().difficulty = repScript.reputation;
 			test.name = "hobo";
+			// how fast hobos spawn
 			yield return new WaitForSeconds(10.0f-(0.009f*(float)repScript.reputation));
 
 		}

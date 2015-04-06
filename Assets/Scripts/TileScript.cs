@@ -21,6 +21,8 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	public GameObject mainBuildMenu;
 
 
+	public AudioClip soundBuild;
+	private AudioSource playAudio;
 
 	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
 	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -28,6 +30,8 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	// Use this for initialization
 	void Start () {
 		parentScript = transform.parent.GetComponent<ISOGRID>();
+
+		playAudio = gameObject.AddComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -73,7 +77,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 			if (this.currentObject == null) {
 				GameObject test1 = Instantiate (mainBuildMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 				Button[] b2= test1.GetComponentsInChildren<Button>();
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < 5; i++)
 				{
 					b2[i].onClick.AddListener (() => parentScript.deselectThisTile ());
 				}
@@ -85,6 +89,8 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
 			} else if (this.currentObject.name == "path") {
+				// shouldn't be able to remove path after day 1
+				/*
 				GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 				Button b1 = test1.GetComponentInChildren<Button> ();
 				b1.onClick.AddListener (() => this.deleteMenu ());
@@ -93,6 +99,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
+				*/
 			}
 		}
 		
@@ -105,6 +112,13 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	{
 		if (!objectPlaced && type == "path" || type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
 		{
+			// for sound
+			if (playAudio != null)
+			{
+				playAudio.clip = soundBuild;
+				playAudio.Play();
+			}
+
 			GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
 			test.name = type;
 			this.currentObject = test;

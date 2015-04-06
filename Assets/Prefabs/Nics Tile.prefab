@@ -99,6 +99,7 @@ MonoBehaviour:
   pathMenu: {fileID: 194856, guid: 7eba2d5fe36f71647abe3105cc2d771e, type: 2}
   removeMenu: {fileID: 171186, guid: 7376963611fdee04ebd4ddeb74819fda, type: 2}
   mainBuildMenu: {fileID: 162314, guid: f294f7d52d4116f49a4c558036d795b4, type: 2}
+  soundBuild: {fileID: 8300000, guid: ab856c4285c198c41a2cd0b780ac45d8, type: 3}
 --- !u!212 &21221808
 SpriteRenderer:
   m_ObjectHideFlags: 1
