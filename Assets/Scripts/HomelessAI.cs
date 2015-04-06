@@ -31,18 +31,29 @@ public class HomelessAI : MonoBehaviour
 
 	public GameObject iconFood;
 
+	public int difficulty;
+
 	// Use this for initialization
 	void Start () 
 	{
-		needsLevel = new int[4];
+		needsLevel = new int[4] {0, 0, 0, 0};
 		needsLevel[0] = Random.Range(0,3);
-		needsLevel[1] = Random.Range(0,2);
-		needsLevel[2] = Random.Range(0,2);
-		needsLevel[3] = Random.Range(0,2);
+		if (difficulty > 30)
+		{
+			needsLevel[1] = Random.Range(0,2);
+		}
+		if (difficulty > 30)
+		{
+			needsLevel[2] = Random.Range(0,2);
+		}
+		if (difficulty > 60)
+		{
+			needsLevel[3] = Random.Range(0,2);
+		}
 
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
-		waitTime = Random.Range(2.0f,3.0f);
+		waitTime = Random.Range(2.0f-(difficulty*0.005f),3.0f);
 
 		pressingNeed = Instantiate(iconFood, new Vector3 (transform.position.x, transform.position.y+2.3f, 0), Quaternion.identity) as GameObject; 
 		pressingNeed.transform.parent = transform;
