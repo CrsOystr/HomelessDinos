@@ -9,8 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 212: {fileID: 21200000}
+  - 114: {fileID: 11452088}
   m_Layer: 0
-  m_Name: iconFood
+  m_Name: iconNeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23,11 +24,27 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.09746504, y: -.863947213, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11452088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a852570699b2143b86ebcad02105b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  needsSprite:
+  - {fileID: 21300000, guid: a7bec4a03ae223f4bafd063fcce758e4, type: 3}
+  - {fileID: 21300000, guid: 6d404a1337ecb684b982444bfe6b3d7f, type: 3}
+  - {fileID: 21300000, guid: 8ccd5b552497b7b4fb85859d6744884e, type: 3}
+  - {fileID: 21300000, guid: 4f8b5c7ac1328f94181241a22a98f3ec, type: 3}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -48,7 +65,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 10002
-  m_Sprite: {fileID: 21300000, guid: 0062d710510d77047897b1647d0e1349, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a7bec4a03ae223f4bafd063fcce758e4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

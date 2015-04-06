@@ -952,7 +952,10 @@ MonoBehaviour:
   Size: {x: 12, y: 12, z: 0}
   selectedTile: {fileID: 0}
   moneyScript: {fileID: 303314939}
-  stoveObject: {fileID: 100000, guid: ac365c8e95bdae744a1060e1c847bc57, type: 2}
+  foodObject: {fileID: 100000, guid: ac365c8e95bdae744a1060e1c847bc57, type: 2}
+  hygieneObject: {fileID: 159466, guid: b93dcf04da52c10499a4793be68427ff, type: 2}
+  healthObject: {fileID: 152378, guid: 9444a6bfd7eb43e46ad7a8d093502715, type: 2}
+  sleepObject: {fileID: 157832, guid: e7c571e0b79918f4b8b2f87561dcc182, type: 2}
   pathObject: {fileID: 159718, guid: 42f16bc815f099e4097295cea9212d16, type: 2}
   enterTilePref: {fileID: 100000, guid: 43b7a4e26733b884fbd2e137c0f96f47, type: 2}
   exitTilePref: {fileID: 100000, guid: a38fe75f4525fe148bd7d2ec86b56d97, type: 2}
