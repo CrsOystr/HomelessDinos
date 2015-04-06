@@ -14,6 +14,8 @@ public class scoreScript : MonoBehaviour {
 
 	public int foodStorage;
 
+	public GameObject endScreen;
+
 	// Use this for initialization
 	void Start () {
 		day = 1;
@@ -24,6 +26,11 @@ public class scoreScript : MonoBehaviour {
 		curText.text = currency.ToString();
 		repText.text = reputation.ToString();
 		dayText.text = day.ToString();
+
+		if (currency < 0)
+		{
+			endScreen.SetActive(true);
+		}
 	}
 
 	//function to manually add one day.

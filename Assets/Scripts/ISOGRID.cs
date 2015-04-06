@@ -184,7 +184,7 @@ public class ISOGRID : MonoBehaviour {
 				}
 			}
 		}
-		if (x<Size.x)
+		if (x<Size.x-1)
 		{
 			if(Grid[x+1,y].GetComponent<TileScript>().objectPlaced)
             {
@@ -204,7 +204,7 @@ public class ISOGRID : MonoBehaviour {
 				}
 			}
 		}
-		if (y<Size.y)
+		if (y<Size.y-1)
 		{
 			if(Grid[x,y+1].GetComponent<TileScript>().objectPlaced)
             {
@@ -238,7 +238,7 @@ public class ISOGRID : MonoBehaviour {
 				}
 			}
 		}
-		if (x<Size.x)
+		if (x<Size.x-1)
 		{
 			if(Grid[x+1,y].GetComponent<TileScript>().objectPlaced)
 			{
@@ -264,7 +264,7 @@ public class ISOGRID : MonoBehaviour {
 				}
 			}
 		}
-		if (y<Size.y)
+		if (y<Size.y-1)
         {
             if(Grid[x,y+1].GetComponent<TileScript>().objectPlaced)
             {

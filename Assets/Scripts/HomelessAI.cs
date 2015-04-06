@@ -36,6 +36,7 @@ public class HomelessAI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		// All this is for adjusting the difficulty of the game
 		needsLevel = new int[4] {0, 0, 0, 0};
 		needsLevel[0] = Random.Range(0,3);
 		if (difficulty > 30)
@@ -51,9 +52,14 @@ public class HomelessAI : MonoBehaviour
 			needsLevel[3] = Random.Range(0,2);
 		}
 
+		// this is how fast the hobo will move. tweak based on difficulty
+		// Mathf.Max is so that if the difficulty becomes very large, we won't get negative speeds
+		waitTime = Random.Range(Mathf.Max(2.0f-((float)difficulty*0.005f),0.3f),
+		                        Mathf.Max(3.0f-((float)difficulty*0.001f),0.9f));
+
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
-		waitTime = Random.Range(2.0f-(difficulty*0.005f),3.0f);
+
 
 		pressingNeed = Instantiate(iconFood, new Vector3 (transform.position.x, transform.position.y+2.3f, 0), Quaternion.identity) as GameObject; 
 		pressingNeed.transform.parent = transform;
@@ -188,24 +194,27 @@ public class HomelessAI : MonoBehaviour
 			}
 
 			//check nearby tiles for unwalked path
-			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
-			foreach(Vector2 tile in pathList)
+			if(!usingObject)
 			{
-				if (tile.x == previousTile.x && tile.y == previousTile.y)
+				List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
+				foreach(Vector2 tile in pathList)
 				{
-				}
-				else
-				{
-					// move here
-                    moveToTile((int)tile.x,(int)tile.y);
-                    
-                    currentTime = 0.0f;
-                    // MIGHT NEED TO REWORK RETURN
-                    return;
-                }
-            }
-            //walk previously walked path
-            moveToTile ((int)previousTile.x,(int)previousTile.y);
+					if (tile.x == previousTile.x && tile.y == previousTile.y)
+					{
+					}
+					else
+					{
+						// move here
+	                    moveToTile((int)tile.x,(int)tile.y);
+	                    
+	                    currentTime = 0.0f;
+	                    // MIGHT NEED TO REWORK RETURN
+	                    return;
+	                }
+	            }
+	            //walk previously walked path
+	            moveToTile ((int)previousTile.x,(int)previousTile.y);
+			}
             
             currentTime = 0.0f;
 		}

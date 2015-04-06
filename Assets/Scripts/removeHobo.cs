@@ -33,7 +33,7 @@ public class removeHobo : MonoBehaviour {
 			else
 			{
 				//repScript.reputation -= 3*Mathf.Max(hobo.needsLevel);
-				repScript.currency -= 100*Mathf.Max(hobo.needsLevel);
+				repScript.currency -= 500*Mathf.Max(hobo.needsLevel);
 			}
 
 			// remove hobo
