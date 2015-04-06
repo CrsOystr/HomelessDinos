@@ -77,8 +77,10 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				{
 					b2[i].onClick.AddListener (() => parentScript.deselectThisTile ());
 				}
-				b2[0].onClick.AddListener (() => this.buildObject (parentScript.stoveObject, "food"));
-				//b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				b2[0].onClick.AddListener (() => this.buildObject (parentScript.foodObject, "food"));
+				b2[1].onClick.AddListener (() => this.buildObject (parentScript.hygieneObject, "hygiene"));
+				b2[2].onClick.AddListener (() => this.buildObject (parentScript.healthObject, "health"));
+				b2[3].onClick.AddListener (() => this.buildObject (parentScript.sleepObject, "sleep"));
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;

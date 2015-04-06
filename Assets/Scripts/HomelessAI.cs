@@ -10,7 +10,10 @@ public class HomelessAI : MonoBehaviour
 
 	public Vector2 previousTile;
 
-	public int hungerLevel;
+	// food hygiene health sleep
+	public int[] needsLevel;
+	// need currently fullfilling
+	int currentNeed = 0;
 
 	float waitTime = 3.0f;
 	float currentTime = 0.0f;
@@ -31,7 +34,12 @@ public class HomelessAI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		hungerLevel = Random.Range(1,3);
+		needsLevel = new int[4];
+		needsLevel[0] = Random.Range(0,3);
+		needsLevel[1] = Random.Range(0,2);
+		needsLevel[2] = Random.Range(0,2);
+		needsLevel[3] = Random.Range(0,2);
+
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
 		waitTime = Random.Range(2.0f,3.0f);
@@ -44,18 +52,37 @@ public class HomelessAI : MonoBehaviour
 	void Update () 
 	{
 
-		if(hungerLevel == 0 && icon == true)
+		if(Mathf.Max(needsLevel) == 0 && icon == true)
 		{
 			Destroy(this.pressingNeed);
 			icon = false;
 
 		}
+		// update need icon
+		if (icon)
+		{
+			int max = 0;
+			int need = 0;
+			for(int i = 0; i < 4; i++)
+			{
+				if (needsLevel[i] > max)
+				{
+					need = i;
+					max = needsLevel[i];
+				}
+			}
+			// change sprite
+			//pressingNeed.GetComponent<switchNeedIcon>().gameObject
+			pressingNeed.GetComponent<SpriteRenderer>().sprite = pressingNeed.GetComponent<switchNeedIcon>().needsSprite[need];
+		}
+
 
 		if(usingObject)
 		{
 			if (!objectInUse.GetComponent<needObjectScript>().inUse)
 			{
-				hungerLevel--;
+				//hungerLevel--;
+				needsLevel[currentNeed]--;
 				usingObject = false;
 			}
 		}
@@ -83,25 +110,71 @@ public class HomelessAI : MonoBehaviour
 		currentTime += Time.deltaTime;
 		if (currentTime >= waitTime)
 		{
+
 			// if hungry, find food
-			List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "food");
-			foreach(Vector2 obj in objList)
+			if(needsLevel[0] != 0 && !usingObject)
 			{
-				if(hungerLevel != 0 && !usingObject)
+				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "food");
+				foreach(Vector2 obj in objList)
 				{
+
+						//check nearby tiles for free need
+						//use this item
+						objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
+						objectInUse.GetComponent<needObjectScript>().inUse = true;
+						usingObject = true;
+						currentNeed = 0;
+						break;
+				}
+			}
+			// if dirty, find hygiene
+			if(needsLevel[1] != 0 && !usingObject)
+			{
+				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "hygiene");
+				foreach(Vector2 obj in objList)
+				{
+					
 					//check nearby tiles for free need
 					//use this item
 					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
 					objectInUse.GetComponent<needObjectScript>().inUse = true;
 					usingObject = true;
+					currentNeed = 1;
+					break;
+				}
+			}
+			// if sick, find medical
+			if(needsLevel[2] != 0 && !usingObject)
+			{
+				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "health");
+				foreach(Vector2 obj in objList)
+				{
+					
+					//check nearby tiles for free need
+					//use this item
+					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
+					objectInUse.GetComponent<needObjectScript>().inUse = true;
+					usingObject = true;
+					currentNeed = 2;
 					break;
 				}
 			}
 			// if sleepy, find sleep
-			
-			// if dirty, find hygiene
-			
-			// if sick, find medical
+			if(needsLevel[3] != 0 && !usingObject)
+			{
+				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "sleep");
+				foreach(Vector2 obj in objList)
+				{
+					
+					//check nearby tiles for free need
+					//use this item
+					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
+					objectInUse.GetComponent<needObjectScript>().inUse = true;
+					usingObject = true;
+					currentNeed = 3;
+					break;
+				}
+			}
 
 			//check nearby tiles for unwalked path
 			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);

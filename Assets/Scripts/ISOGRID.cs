@@ -21,7 +21,10 @@ public class ISOGRID : MonoBehaviour {
 	Color restoreTile = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 	//Color tintTile = new Color(178.0f, 178.0f, 178.0f, 255.0f);
 
-	public GameObject stoveObject;
+	public GameObject foodObject;
+	public GameObject hygieneObject;
+	public GameObject healthObject;
+	public GameObject sleepObject;
 	public GameObject pathObject;
 
 	public GameObject enterTilePref;
@@ -44,7 +47,7 @@ public class ISOGRID : MonoBehaviour {
 			// press button for stove
 			if(Input.GetKeyDown(KeyCode.Space))
 			{ 
-					selectedTile.GetComponent<TileScript>().buildObject(stoveObject, "food");
+					selectedTile.GetComponent<TileScript>().buildObject(foodObject, "food");
 			}
 			// get path
 			if(Input.GetKeyDown(KeyCode.P))
