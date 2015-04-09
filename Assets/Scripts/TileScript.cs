@@ -60,6 +60,12 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				Button b1 = test1.GetComponentInChildren<Button> ();
 				b1.onClick.AddListener (() => this.buildObject (parentScript.pathObject, "path"));
 				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				//b1.GetComponentInChildren<Text>().active = true;
+				test1.GetComponentInChildren<Button> ().GetComponentInChildren<Text> ().text = "lol";
+				//b1.GetComponentInChildren<Text>().enabled = false;
+
+
+				//lol.text ="sad";
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
@@ -69,6 +75,9 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				b1.onClick.AddListener (() => this.deleteMenu ());
 				b1.onClick.AddListener (() => this.deleteObject ());
 				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
+				//Text lol = test1.GetComponentInChildren<Text>();
+				//lol.text =
+				//b1.OnPointerEnter(this.deleteMenu ());
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
@@ -90,16 +99,6 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				menuUp = true;
 			} else if (this.currentObject.name == "path") {
 				// shouldn't be able to remove path after day 1
-				/*
-				GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
-				Button b1 = test1.GetComponentInChildren<Button> ();
-				b1.onClick.AddListener (() => this.deleteMenu ());
-				b1.onClick.AddListener (() => this.deleteObject ());
-				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
-				this.currentMenu = test1;
-				currentMenu.transform.parent = this.transform;
-				menuUp = true;
-				*/
 			}
 		}
 		
@@ -110,7 +109,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	// create object
 	public void buildObject(GameObject addObject, string type)
 	{
-		if (!objectPlaced && type == "path" || type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
+		if (!objectPlaced && type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
 		{
 			// for sound
 			if (playAudio != null)

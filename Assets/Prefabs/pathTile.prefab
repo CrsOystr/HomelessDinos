@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 459718}
   - 212: {fileID: 21259718}
+  - 114: {fileID: 11431094}
   m_Layer: 0
   m_Name: pathTile
   m_TagString: Untagged
@@ -23,11 +24,27 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 159718}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 198.392639, y: -189.401627, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11431094
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 159718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03977e8da83946842b8fdf71b2993d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseTime: 0
+  inUse: 0
+  cost: 50
+  gridPosition: {x: 0, y: 0}
+  gridScript: {fileID: 0}
 --- !u!212 &21259718
 SpriteRenderer:
   m_ObjectHideFlags: 1
