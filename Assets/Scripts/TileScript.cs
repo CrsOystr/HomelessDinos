@@ -167,6 +167,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 			Destroy(this.currentObject);
 			objectPlaced = false;
 		}
+		deleteMenu ();
 	}
 
 	public void deleteMenu()
