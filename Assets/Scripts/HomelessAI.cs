@@ -4,10 +4,9 @@ using System.Collections.Generic;
 
 public class HomelessAI : MonoBehaviour 
 {
-
-	public Vector2 gridPosition;
 	public ISOGRID gridScript;
 
+	public Vector2 gridPosition;
 	public Vector2 previousTile;
 
 	// food hygiene health sleep

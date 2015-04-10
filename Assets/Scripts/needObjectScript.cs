@@ -14,6 +14,8 @@ public class needObjectScript : MonoBehaviour {
 	float currentTime = 0.0f;
 
 	public int cost;
+	public int upgradeCost;
+	public int sellPrice;
 
 	public Vector2 gridPosition;
 	public ISOGRID gridScript;

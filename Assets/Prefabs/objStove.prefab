@@ -43,6 +43,10 @@ MonoBehaviour:
   baseTime: 5
   inUse: 0
   cost: 1500
+  upgradeCost: 750
+  sellPrice: 1250
+  gridPosition: {x: 0, y: 0}
+  gridScript: {fileID: 0}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -43,6 +43,8 @@ MonoBehaviour:
   baseTime: 7
   inUse: 0
   cost: 1250
+  upgradeCost: 500
+  sellPrice: 1050
   gridPosition: {x: 0, y: 0}
   gridScript: {fileID: 0}
 --- !u!212 &21259466

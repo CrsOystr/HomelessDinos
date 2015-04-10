@@ -19,7 +19,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	public GameObject pathMenu;
 	public GameObject removeMenu;
 	public GameObject mainBuildMenu;
-
+	public GameObject upgradeMenu;
 
 	public AudioClip soundBuild;
 	private AudioSource playAudio;
@@ -60,24 +60,16 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 				Button b1 = test1.GetComponentInChildren<Button> ();
 				b1.onClick.AddListener (() => this.buildObject (parentScript.pathObject, "path"));
 				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
-				//b1.GetComponentInChildren<Text>().active = true;
-				test1.GetComponentInChildren<Button> ().GetComponentInChildren<Text> ().text = "lol";
-				//b1.GetComponentInChildren<Text>().enabled = false;
-
-
-				//lol.text ="sad";
+				b1.GetComponentInChildren<Text> ().text = parentScript.pathObject.GetComponent<needObjectScript>().cost.ToString();
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
 			} else if (this.currentObject.name == "path") {
 				GameObject test1 = Instantiate (removeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 				Button b1 = test1.GetComponentInChildren<Button> ();
-				b1.onClick.AddListener (() => this.deleteMenu ());
 				b1.onClick.AddListener (() => this.deleteObject ());
 				b1.onClick.AddListener (() => parentScript.deselectThisTile ());
-				//Text lol = test1.GetComponentInChildren<Text>();
-				//lol.text =
-				//b1.OnPointerEnter(this.deleteMenu ());
+				b1.GetComponentInChildren<Text> ().text = currentObject.GetComponent<needObjectScript>().sellPrice.ToString();
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
@@ -91,14 +83,34 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 					b2[i].onClick.AddListener (() => parentScript.deselectThisTile ());
 				}
 				b2[0].onClick.AddListener (() => this.buildObject (parentScript.foodObject, "food"));
+				b2[0].GetComponentInChildren<Text> ().text = parentScript.foodObject.GetComponent<needObjectScript>().cost.ToString();
 				b2[1].onClick.AddListener (() => this.buildObject (parentScript.hygieneObject, "hygiene"));
+				b2[1].GetComponentInChildren<Text> ().text = parentScript.hygieneObject.GetComponent<needObjectScript>().cost.ToString();
 				b2[2].onClick.AddListener (() => this.buildObject (parentScript.healthObject, "health"));
+				b2[2].GetComponentInChildren<Text> ().text = parentScript.healthObject.GetComponent<needObjectScript>().cost.ToString();  
 				b2[3].onClick.AddListener (() => this.buildObject (parentScript.sleepObject, "sleep"));
+				b2[3].GetComponentInChildren<Text> ().text = parentScript.sleepObject.GetComponent<needObjectScript>().cost.ToString();
+
 				this.currentMenu = test1;
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
-			} else if (this.currentObject.name == "path") {
-				// shouldn't be able to remove path after day 1
+			} else if (this.currentObject.name != "path") {
+				GameObject test1 = Instantiate (upgradeMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
+				Button[] b2= test1.GetComponentsInChildren<Button>();
+				for (int i = 0; i < 2; i++)
+				{
+					b2[i].onClick.AddListener (() => parentScript.deselectThisTile ());
+				}
+					// UPGRADE TOWERS NEEDS TO BECOME ADDED HERE
+					//b2[0].onClick.AddListener (() => currentObject.);
+					b2[0].GetComponentInChildren<Text> ().text = currentObject.GetComponent<needObjectScript>().upgradeCost.ToString();
+					b2[1].onClick.AddListener (() => this.deleteObject());
+					b2[1].GetComponentInChildren<Text> ().text = currentObject.GetComponent<needObjectScript>().sellPrice.ToString();  
+
+					this.currentMenu = test1;
+					currentMenu.transform.parent = this.transform;
+					menuUp = true;
+				
 			}
 		}
 		
@@ -151,9 +163,9 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	{
 		if(objectPlaced)
 		{
+			parentScript.moneyScript.currency += currentObject.GetComponent<needObjectScript>().sellPrice;
 			Destroy(this.currentObject);
 			objectPlaced = false;
-
 		}
 	}
 
