@@ -10,12 +10,19 @@ public class cameraController : MonoBehaviour {
 
 	private float scrollSpeed;
 
+	private bool dragging;
+	private Plane groundPlane;
+	private Vector3 mouseDownPos;
+
 
 
 	// Use this for initialization
 	void Start () {
 		transform.position = new Vector3 (transform.position.x, transform.position.y+5, transform.position.z);
 
+		Vector3 groundNormal = new Vector3(0.0f, 1.0f, 0.0f);
+		Vector3 groundPoint = new Vector3(0.0f, 0.0f, 0.0f);
+		groundPlane = new Plane (groundNormal, groundPoint);
 	}
 	
 	// Update is called once per frame
@@ -48,6 +55,29 @@ public class cameraController : MonoBehaviour {
 			{
 				transform.position = new Vector3 (transform.position.x, transform.position.y-scrollSpeed, transform.position.z);
 			}
+		}
+
+		if(Input.GetMouseButton(0))
+		{
+			float hitDist;
+			Ray mouse = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+			if (dragging)
+			{
+				groundPlane.Raycast(mouse, out hitDist);
+				Vector3 mousePos = mouse.GetPoint(hitDist);
+				this.transform.position += mouseDownPos - mousePos;
+			}
+			else if(Input.GetMouseButtonDown(0))
+			{
+				groundPlane.Raycast(mouse, out hitDist);
+				mouseDownPos = mouse.GetPoint(hitDist);
+				dragging = true;
+			}
+		}
+		else
+		{
+			dragging = false;
 		}
 	}
 }

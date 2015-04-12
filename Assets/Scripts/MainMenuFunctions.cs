@@ -17,4 +17,9 @@ public class MainMenuFunctions : MonoBehaviour {
 	{
 		Application.LoadLevel(newScene);
 	}
+
+	public void CloseGame()
+	{
+		Application.Quit();
+	}
 }
