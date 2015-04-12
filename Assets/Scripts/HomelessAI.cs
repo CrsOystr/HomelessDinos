@@ -32,9 +32,15 @@ public class HomelessAI : MonoBehaviour
 
 	public int difficulty;
 
+	scoreScript repScript;
+	public int startHoboDifficulty;
+	public int currentHoboDifficulty;
+
 	// Use this for initialization
 	void Start () 
 	{
+		repScript = GameObject.Find("ScoreKeeper").GetComponent<scoreScript>();
+
 		// All this is for adjusting the difficulty of the game
 		needsLevel = new int[4] {0, 0, 0, 0};
 		needsLevel[0] = Random.Range(0,3);
@@ -50,6 +56,10 @@ public class HomelessAI : MonoBehaviour
 		{
 			needsLevel[3] = Random.Range(0,2);
 		}
+
+		// represents the overall difficulty of a hobo on spawn, used for scoring.
+		startHoboDifficulty = needsLevel[0] + needsLevel[1] + needsLevel[2] + needsLevel[3];
+		currentHoboDifficulty = startHoboDifficulty;
 
 		// this is how fast the hobo will move. tweak based on difficulty
 		// Mathf.Max is so that if the difficulty becomes very large, we won't get negative speeds
@@ -99,6 +109,7 @@ public class HomelessAI : MonoBehaviour
 			{
 				//hungerLevel--;
 				needsLevel[currentNeed]--;
+				repScript.currency += 100;
 				usingObject = false;
 			}
 		}

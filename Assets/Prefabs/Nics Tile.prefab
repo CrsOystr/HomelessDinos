@@ -98,7 +98,7 @@ MonoBehaviour:
   objectPlaced: 0
   pathMenu: {fileID: 194856, guid: 7eba2d5fe36f71647abe3105cc2d771e, type: 2}
   removeMenu: {fileID: 171186, guid: 7376963611fdee04ebd4ddeb74819fda, type: 2}
-  mainBuildMenu: {fileID: 162314, guid: b46052b08fc748b47963224ed186fd18, type: 2}
+  mainBuildMenu: {fileID: 162314, guid: b2856386e7ed08b4eb63c37f9938a9fc, type: 2}
   upgradeMenu: {fileID: 114182, guid: 2cc5f6b6c17ef704080c278831946241, type: 2}
   soundBuild: {fileID: 8300000, guid: ab856c4285c198c41a2cd0b780ac45d8, type: 3}
 --- !u!212 &21221808

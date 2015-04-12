@@ -27,12 +27,13 @@ public class removeHobo : MonoBehaviour {
 			HomelessAI hobo = collision.gameObject.GetComponent<HomelessAI>();
 			if (Mathf.Max(hobo.needsLevel) <= 0)
 			{
-				repScript.reputation += 10;
-				repScript.currency += 300;
+				repScript.reputation += hobo.startHoboDifficulty;
+				//repScript.currency += 300;
 			}
 			else
 			{
 				//repScript.reputation -= 3*Mathf.Max(hobo.needsLevel);
+				repScript.reputation -= hobo.currentHoboDifficulty;
 				repScript.currency -= 500*Mathf.Max(hobo.needsLevel);
 			}
 
