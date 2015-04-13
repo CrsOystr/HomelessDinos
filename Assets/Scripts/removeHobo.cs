@@ -34,7 +34,7 @@ public class removeHobo : MonoBehaviour {
 			{
 				//repScript.reputation -= 3*Mathf.Max(hobo.needsLevel);
 				repScript.reputation -= hobo.currentHoboDifficulty;
-				repScript.currency -= 500*Mathf.Max(hobo.needsLevel);
+				repScript.currency -= 100*Mathf.Max(hobo.needsLevel);
 			}
 
 			// remove hobo

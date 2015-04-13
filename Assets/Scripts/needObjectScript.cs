@@ -20,6 +20,19 @@ public class needObjectScript : MonoBehaviour {
 	public Vector2 gridPosition;
 	public ISOGRID gridScript;
 
+	// used to distinguish between need object types
+
+	public int objectTypeID;
+
+	/*
+	 * 0 = Table
+	 * 1 = Stove
+	 * 2 = Medicine Cabinet
+	 * 3 = Washer/Dryer Combo
+	 * 4 = Bed
+	 * 
+	 */
+
 	// Use this for initialization
 	void Start () {
 		/*
@@ -29,30 +42,31 @@ public class needObjectScript : MonoBehaviour {
 		foreach(Vector2 obj in objList)
 		{
 			// increment the number of adjacent objects for both this object and the object in the list
-			obj.numberAdjacentObjects ++;
+			//obj.numberAdjacentObjects ++;
 			this.numberAdjacentObjects ++;
 		}
-		*/
-	
+		*/	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (inUse)
+		if (objectTypeID < 5) // simple test for now to keep current objects behaviour as they are
 		{
-			if (!eating)
+			if (inUse)
 			{
-				                                                      // increases speed by 10 percent per adjacent need object  
-				needTime = baseTime - (level*(0.5f) - volunteer*2.0f) * (1.0f + 0.05f * numberAdjacentObjects);
-				eating = true;
-			}
-			currentTime += Time.deltaTime;
-			if (currentTime>=needTime)
-			{
-				// need has been fulfilled
-				inUse = false;
-				eating = false;
-				currentTime = 0.0f;
+				if (!eating)
+				{				                                          // increases speed by 5 percent per adjacent need object  
+					needTime = baseTime - (level*(0.5f) - volunteer*2.0f) * (1.0f + 0.05f * numberAdjacentObjects);
+					eating = true;
+				}
+				currentTime += Time.deltaTime;
+				if (currentTime>=needTime)
+				{
+					// need has been fulfilled
+					inUse = false;
+					eating = false;
+					currentTime = 0.0f;
+				}
 			}
 		}
 	}

@@ -175,8 +175,7 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 		if(menuUp)
 		{
 			Destroy(this.currentMenu);
-			menuUp = false;
-			
+			menuUp = false;			
 		}
 	}
 

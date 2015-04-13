@@ -43,22 +43,29 @@ public class HomelessAI : MonoBehaviour
 
 		// All this is for adjusting the difficulty of the game
 		needsLevel = new int[4] {0, 0, 0, 0};
-		needsLevel[0] = Random.Range(0,3);
-		if (difficulty > 30)
+		needsLevel[0] = Random.Range(0,2 + repScript.reputation / 20);
+		if (difficulty > 20)
 		{
-			needsLevel[1] = Random.Range(0,2);
+			needsLevel[1] = Random.Range(0,2 + repScript.reputation / 20);
 		}
 		if (difficulty > 30)
 		{
-			needsLevel[2] = Random.Range(0,2);
+			needsLevel[2] = Random.Range(0,2 + repScript.reputation / 20);
 		}
 		if (difficulty > 60)
 		{
-			needsLevel[3] = Random.Range(0,2);
+			needsLevel[3] = Random.Range(0,2 + repScript.reputation / 20);
 		}
 
 		// represents the overall difficulty of a hobo on spawn, used for scoring.
 		startHoboDifficulty = needsLevel[0] + needsLevel[1] + needsLevel[2] + needsLevel[3];
+
+		// never have hobos with no needs.
+		if (startHoboDifficulty == 0)
+		{
+			needsLevel[0]++;
+			startHoboDifficulty++;
+		}
 		currentHoboDifficulty = startHoboDifficulty;
 
 		// this is how fast the hobo will move. tweak based on difficulty
@@ -102,6 +109,10 @@ public class HomelessAI : MonoBehaviour
 			pressingNeed.GetComponent<SpriteRenderer>().sprite = pressingNeed.GetComponent<switchNeedIcon>().needsSprite[need];
 		}
 
+		// speed up hobo if all needs are met
+		if (currentHoboDifficulty <= 0)
+			waitTime = 0.9f;
+
 
 		if(usingObject)
 		{
@@ -109,7 +120,8 @@ public class HomelessAI : MonoBehaviour
 			{
 				//hungerLevel--;
 				needsLevel[currentNeed]--;
-				repScript.currency += 100;
+				repScript.currency += 150;
+				currentHoboDifficulty --;
 				usingObject = false;
 			}
 		}
