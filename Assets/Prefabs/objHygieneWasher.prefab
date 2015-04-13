@@ -47,6 +47,7 @@ MonoBehaviour:
   sellPrice: 1050
   gridPosition: {x: 0, y: 0}
   gridScript: {fileID: 0}
+  objectTypeID: 3
 --- !u!212 &21259466
 SpriteRenderer:
   m_ObjectHideFlags: 1

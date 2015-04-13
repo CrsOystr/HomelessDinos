@@ -43,6 +43,11 @@ MonoBehaviour:
   baseTime: 5
   inUse: 0
   cost: 500
+  upgradeCost: 0
+  sellPrice: 0
+  gridPosition: {x: 0, y: 0}
+  gridScript: {fileID: 0}
+  objectTypeID: 0
 --- !u!212 &21261518
 SpriteRenderer:
   m_ObjectHideFlags: 1
