@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class HomelessAI : MonoBehaviour 
 {
 	public ISOGRID gridScript;
-
+	private Animator animator;
 	public Vector2 gridPosition;
 	public Vector2 previousTile;
 
@@ -39,6 +39,8 @@ public class HomelessAI : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+		animator = gameObject.GetComponent<Animator>();
+		animator.speed = 0.2f;
 		repScript = GameObject.Find("ScoreKeeper").GetComponent<scoreScript>();
 
 		// All this is for adjusting the difficulty of the game
@@ -116,6 +118,8 @@ public class HomelessAI : MonoBehaviour
 
 		if(usingObject)
 		{
+			animator.speed = 0.0f;
+
 			if (!objectInUse.GetComponent<needObjectScript>().inUse)
 			{
 				//hungerLevel--;
@@ -127,7 +131,7 @@ public class HomelessAI : MonoBehaviour
 		}
 		else
 		{
-
+			animator.speed = 0.3f;
 			// transition between tiles
 			if (lerpPos < 1.0f)
 			{
@@ -254,5 +258,15 @@ public class HomelessAI : MonoBehaviour
 		gridPosition.y = y;
 		renderer.sortingOrder = 10000-((int)gridPosition.x + (int)gridPosition.y);
         lerpPos = 0.0f;
+		if ((gridPosition.x - previousTile.x) > 0 && (previousTile.y == gridPosition.y)) {
+			animator.SetInteger ("Direction", 1);
+		} else if ((gridPosition.x - previousTile.x) < 0 && (previousTile.y == gridPosition.y)) {
+			animator.SetInteger ("Direction", 3);
+		} else if ((gridPosition.x == previousTile.x) && 0 < (gridPosition.y - previousTile.y)) {
+			animator.SetInteger ("Direction", 2);
+		} else if ((gridPosition.x == previousTile.x) && 0 > (gridPosition.y - previousTile.y)) {
+			animator.SetInteger ("Direction", 4);
+		}
+
     }
 }
