@@ -22,10 +22,11 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	public GameObject upgradeMenu;
 
 	public AudioClip soundBuild;
+	public AudioClip soundSell;
 	private AudioSource playAudio;
 
-	Color tintObject = new Color(0.7f, 0.7f, 0.7f, 1.0f);
-	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+	Color tintObject = new Color(0.9f, 0.5f, 0.5f, 0.5f);
+	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 0.8f);
 
 	// Use this for initialization
 	void Start () {
@@ -166,6 +167,11 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 			parentScript.moneyScript.currency += currentObject.GetComponent<needObjectScript>().sellPrice;
 			Destroy(this.currentObject);
 			objectPlaced = false;
+			if (playAudio != null)
+			{
+				playAudio.clip = soundSell;
+				playAudio.Play();
+			}
 		}
 		deleteMenu ();
 	}

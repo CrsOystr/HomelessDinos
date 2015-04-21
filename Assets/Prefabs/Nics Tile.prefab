@@ -101,6 +101,7 @@ MonoBehaviour:
   mainBuildMenu: {fileID: 162314, guid: f294f7d52d4116f49a4c558036d795b4, type: 2}
   upgradeMenu: {fileID: 114182, guid: 2cc5f6b6c17ef704080c278831946241, type: 2}
   soundBuild: {fileID: 8300000, guid: ab856c4285c198c41a2cd0b780ac45d8, type: 3}
+  soundSell: {fileID: 8300000, guid: 54871737d83a04c44b54f93a46faf417, type: 3}
 --- !u!212 &21221808
 SpriteRenderer:
   m_ObjectHideFlags: 1

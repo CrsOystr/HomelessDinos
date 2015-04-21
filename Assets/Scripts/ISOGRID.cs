@@ -191,8 +191,8 @@ public class ISOGRID : MonoBehaviour {
 			}
 		}
 
-		enterTile = Random.Range(2, (int)Size.y-1);
-		exitTile = Random.Range (2, (int)Size.x-1);
+		enterTile = Random.Range(4, (int)Size.y-1);
+		exitTile = Random.Range (4, (int)Size.x-1);
 		// create enterTile and exitTile
 		Grid[0,enterTile].GetComponent<TileScript>().buildObject(enterTilePref, "spawn");
 		Grid[exitTile,0].GetComponent<TileScript>().buildObject(exitTilePref, "spawn");
