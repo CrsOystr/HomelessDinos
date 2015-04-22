@@ -47,6 +47,11 @@ MonoBehaviour:
   sellPrice: 0
   gridPosition: {x: 0, y: 0}
   gridScript: {fileID: 0}
+  rotationSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   objectTypeID: 0
 --- !u!212 &21261518
 SpriteRenderer:

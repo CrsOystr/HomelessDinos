@@ -1568,6 +1568,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camSpeed: 4.5
   bound: 40
+  cameraLimit: 10
 --- !u!114 &871021306
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -47,6 +47,11 @@ MonoBehaviour:
   sellPrice: 1050
   gridPosition: {x: 0, y: 0}
   gridScript: {fileID: 0}
+  rotationSprites:
+  - {fileID: 21300000, guid: de3f243f8ac8f3a429813a093283af55, type: 3}
+  - {fileID: 21300000, guid: 5f0e9139fcd70f149b1e57f3b4413a09, type: 3}
+  - {fileID: 21300000, guid: bc49a746c0e07454088f758cf0c9b3a0, type: 3}
+  - {fileID: 21300000, guid: 97b9c8f5fc4760f44b647f6923640239, type: 3}
   objectTypeID: 3
 --- !u!212 &21259466
 SpriteRenderer:
