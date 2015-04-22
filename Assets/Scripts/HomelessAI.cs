@@ -86,7 +86,7 @@ public class HomelessAI : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-
+		// destroy icon if no more needs
 		if(Mathf.Max(needsLevel) == 0 && icon == true)
 		{
 			Destroy(this.pressingNeed);
@@ -107,7 +107,6 @@ public class HomelessAI : MonoBehaviour
 				}
 			}
 			// change sprite
-			//pressingNeed.GetComponent<switchNeedIcon>().gameObject
 			pressingNeed.GetComponent<SpriteRenderer>().sprite = pressingNeed.GetComponent<switchNeedIcon>().needsSprite[need];
 			currentNeed = need;
 		}
@@ -115,7 +114,6 @@ public class HomelessAI : MonoBehaviour
 		// speed up hobo if all needs are met
 		if (currentHoboDifficulty <= 0)
 			waitTime = 0.9f;
-
 
 		if(usingObject)
 		{
@@ -232,7 +230,8 @@ public class HomelessAI : MonoBehaviour
 		previousTile.y = gridPosition.y;
 		//transform.position = new Vector3(gridScript.Grid[(int)tile.x,(int)tile.y].transform.position.x, gridScript.Grid[(int)tile.x,(int)tile.y].transform.position.y,transform.position.z);
 		startLerp = transform.position;
-		endLerp = new Vector3(gridScript.Grid[x,y].transform.position.x, gridScript.Grid[x,y].transform.position.y,transform.position.z);
+		// creates some randomness in the ending point
+		endLerp = new Vector3(gridScript.Grid[x,y].transform.position.x+Random.Range(-0.3f, 0.3f), gridScript.Grid[x,y].transform.position.y+Random.Range(-0.3f, 0.1f),transform.position.z);
 		gridPosition.x = x;
 		gridPosition.y = y;
 		renderer.sortingOrder = 10000-((int)gridPosition.x + (int)gridPosition.y);
