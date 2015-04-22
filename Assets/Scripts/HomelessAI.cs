@@ -120,8 +120,11 @@ public class HomelessAI : MonoBehaviour
 		if(usingObject)
 		{
 			animator.speed = 0.0f;
-
-			if (!objectInUse.GetComponent<needObjectScript>().inUse)
+			if(objectInUse == null)
+			{
+				usingObject = false;
+			}
+			else if (!objectInUse.GetComponent<needObjectScript>().inUse)
 			{
 				//hungerLevel--;
 				needsLevel[currentNeed]--;
