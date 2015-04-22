@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 //This class creates objects and represents a specific tile. it checks for mouse clicks and interaction
 
-public class TileScript : MonoBehaviour, IPointerClickHandler {
+public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler {
 	public ISOGRID parentScript;
 
 	public Vector2 Position;
@@ -25,6 +25,8 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	public AudioClip soundSell;
 	private AudioSource playAudio;
 
+	private float lastTime;
+
 	Color tintObject = new Color(0.9f, 0.5f, 0.5f, 0.5f);
 	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 0.8f);
 
@@ -40,12 +42,27 @@ public class TileScript : MonoBehaviour, IPointerClickHandler {
 	
 	}
 
+	public void OnPointerDown (PointerEventData eventData)
+	{
+		lastTime = Time.time;
+	}
+
+	public void OnPointerUp (PointerEventData eventData)
+	{
+		if (Time.time - lastTime < 0.35f)
+		{
+			parentScript.selectThisTile (gameObject);
+			buildMenu(1);
+		}
+	}
+	/*
 	//THIS IS THE NEW WAY to implement on click function things
 	public void OnPointerClick (PointerEventData eventData)
 	{
 		parentScript.selectThisTile (gameObject);
 		buildMenu(1);
 	}
+	*/
 
 	// this is THE OLD METHOD for detecting player clicking tile
 	/*void OnMouseDown() {

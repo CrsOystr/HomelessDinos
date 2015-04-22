@@ -53,10 +53,10 @@ public class cameraController : MonoBehaviour {
 			                                      cameraLimit,
 			                                      this.transform.position.z);
 		}
-		if (this.transform.position.y < -cameraLimit)
+		if (this.transform.position.y < 0)
 		{
 			this.transform.position = new Vector3(this.transform.position.x,
-			                                      -cameraLimit,
+			                                      0,
 			                                      this.transform.position.z);
 		}
 
@@ -102,7 +102,7 @@ public class cameraController : MonoBehaviour {
 					                                      this.transform.position.y,
 					                                      this.transform.position.z);
 				}
-				if (this.transform.position.y + mouseDownPos.y- mousePos.y > -cameraLimit && 
+				if (this.transform.position.y + mouseDownPos.y- mousePos.y > 0 && 
 				    this.transform.position.y + mouseDownPos.y- mousePos.y < cameraLimit)
 				{
 					this.transform.position = new Vector3(this.transform.position.x,
