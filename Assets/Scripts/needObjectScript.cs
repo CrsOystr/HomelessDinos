@@ -20,6 +20,8 @@ public class needObjectScript : MonoBehaviour {
 	public Vector2 gridPosition;
 	public ISOGRID gridScript;
 
+	public Sprite[] rotationSprites;
+
 	// used to distinguish between need object types
 
 	public int objectTypeID;
@@ -46,6 +48,41 @@ public class needObjectScript : MonoBehaviour {
 			this.numberAdjacentObjects ++;
 		}
 		*/	
+		//transform.parent.GetComponent<ISOGRID>();
+		// get variables from parent to initialize
+		gridScript = transform.parent.transform.parent.GetComponent<ISOGRID>();
+		gridPosition.x = transform.parent.GetComponent<TileScript>().Position.x;
+		gridPosition.y = transform.parent.GetComponent<TileScript>().Position.y;
+
+
+		// update rotation based on nearby path
+		if (objectTypeID != 0)
+		{
+			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
+			foreach(Vector2 tile in pathList)
+			{
+				if (tile.x < gridPosition.x)
+				{
+					GetComponent<SpriteRenderer>().sprite = rotationSprites[1];
+					break;
+				}
+				if (tile.x > gridPosition.x)
+				{
+					GetComponent<SpriteRenderer>().sprite = rotationSprites[3];
+					break;
+				}
+				if (tile.y < gridPosition.y)
+				{
+					GetComponent<SpriteRenderer>().sprite = rotationSprites[0];
+					break;
+				}
+				if (tile.y > gridPosition.y)
+				{
+					GetComponent<SpriteRenderer>().sprite = rotationSprites[2];
+					break;
+				}
+			}
+		}
 	}
 	
 	// Update is called once per frame
