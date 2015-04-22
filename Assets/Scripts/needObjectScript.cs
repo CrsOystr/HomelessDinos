@@ -48,7 +48,7 @@ public class needObjectScript : MonoBehaviour {
 			this.numberAdjacentObjects ++;
 		}
 		*/	
-		//transform.parent.GetComponent<ISOGRID>();
+
 		// get variables from parent to initialize
 		gridScript = transform.parent.transform.parent.GetComponent<ISOGRID>();
 		gridPosition.x = transform.parent.GetComponent<TileScript>().Position.x;

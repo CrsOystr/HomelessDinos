@@ -93,7 +93,7 @@ public class HomelessAI : MonoBehaviour
 			icon = false;
 
 		}
-		// update need icon
+		// update need icon and what need to satisfy
 		if (icon)
 		{
 			int max = 0;
@@ -109,6 +109,7 @@ public class HomelessAI : MonoBehaviour
 			// change sprite
 			//pressingNeed.GetComponent<switchNeedIcon>().gameObject
 			pressingNeed.GetComponent<SpriteRenderer>().sprite = pressingNeed.GetComponent<switchNeedIcon>().needsSprite[need];
+			currentNeed = need;
 		}
 
 		// speed up hobo if all needs are met
@@ -153,70 +154,26 @@ public class HomelessAI : MonoBehaviour
 		currentTime += Time.deltaTime;
 		if (currentTime >= waitTime)
 		{
-
+			// food hygiene health sleep
 			// if hungry, find food
-			if(needsLevel[0] != 0 && !usingObject)
+			if(currentNeed == 0 && needsLevel[0] != 0)
 			{
-				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "food");
-				foreach(Vector2 obj in objList)
-				{
-
-						//check nearby tiles for free need
-						//use this item
-						objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
-						objectInUse.GetComponent<needObjectScript>().inUse = true;
-						usingObject = true;
-						currentNeed = 0;
-						break;
-				}
+				satisfyNeed("food",0);
 			}
 			// if dirty, find hygiene
-			if(needsLevel[1] != 0 && !usingObject)
+			else if(currentNeed == 1 && needsLevel[1] != 0)
 			{
-				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "hygiene");
-				foreach(Vector2 obj in objList)
-				{
-					
-					//check nearby tiles for free need
-					//use this item
-					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
-					objectInUse.GetComponent<needObjectScript>().inUse = true;
-					usingObject = true;
-					currentNeed = 1;
-					break;
-				}
+				satisfyNeed("hygiene",1);
 			}
 			// if sick, find medical
-			if(needsLevel[2] != 0 && !usingObject)
+			else if(currentNeed == 2 && needsLevel[2] != 0)
 			{
-				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "health");
-				foreach(Vector2 obj in objList)
-				{
-					
-					//check nearby tiles for free need
-					//use this item
-					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
-					objectInUse.GetComponent<needObjectScript>().inUse = true;
-					usingObject = true;
-					currentNeed = 2;
-					break;
-				}
+				satisfyNeed("health",2);
 			}
 			// if sleepy, find sleep
-			if(needsLevel[3] != 0 && !usingObject)
+			else if(currentNeed == 3 && needsLevel[3] != 0)
 			{
-				List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, "sleep");
-				foreach(Vector2 obj in objList)
-				{
-					
-					//check nearby tiles for free need
-					//use this item
-					objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
-					objectInUse.GetComponent<needObjectScript>().inUse = true;
-					usingObject = true;
-					currentNeed = 3;
-					break;
-				}
+				satisfyNeed("sleep",3);
 			}
 
 			//check nearby tiles for unwalked path
@@ -243,6 +200,25 @@ public class HomelessAI : MonoBehaviour
 			}
             
             currentTime = 0.0f;
+		}
+	}
+
+	void satisfyNeed(string need, int needIndex)
+	{
+		if (!usingObject)
+		{
+			List<Vector2> objList = gridScript.nearbyNeeds((int)gridPosition.x,(int)gridPosition.y, need);
+			foreach(Vector2 obj in objList)
+			{
+				
+				//check nearby tiles for free need
+				//use this item
+				objectInUse = gridScript.Grid[(int)obj.x,(int)obj.y].GetComponent<TileScript>().currentObject;
+				objectInUse.GetComponent<needObjectScript>().inUse = true;
+				usingObject = true;
+				//currentNeed = needIndex;
+				break;
+			}
 		}
 	}
 
