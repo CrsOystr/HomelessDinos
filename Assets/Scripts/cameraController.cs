@@ -6,7 +6,7 @@ public class cameraController : MonoBehaviour {
 	// set these externally in the settings panel
 	public float camSpeed;
 	public int bound;
-
+	public int cameraLimit;
 
 	private float scrollSpeed;
 
@@ -35,8 +35,34 @@ public class cameraController : MonoBehaviour {
 		float yAxisValue = Input.GetAxis("Vertical");
 
 		transform.Translate(new Vector3(xAxisValue*scrollSpeed, yAxisValue*scrollSpeed, 0.0f));
+		if (this.transform.position.x > cameraLimit)
+		{
+			this.transform.position = new Vector3(cameraLimit,
+			                                      this.transform.position.y,
+			                                      this.transform.position.z);
+		}
+		if (this.transform.position.x < -cameraLimit)
+		{
+			this.transform.position = new Vector3(-cameraLimit,
+			                                      this.transform.position.y,
+			                                      this.transform.position.z);
+		}
+		if (this.transform.position.y > cameraLimit)
+		{
+			this.transform.position = new Vector3(this.transform.position.x,
+			                                      cameraLimit,
+			                                      this.transform.position.z);
+		}
+		if (this.transform.position.y < -cameraLimit)
+		{
+			this.transform.position = new Vector3(this.transform.position.x,
+			                                      -cameraLimit,
+			                                      this.transform.position.z);
+		}
+
 
 		// edge of screen input
+		/*
 		if (Input.mousePosition.x < Screen.width && Input.mousePosition.x > 0 && Input.mousePosition.y < Screen.height && Input.mousePosition.y > 0)
 		{
 			if (Input.mousePosition.x > Screen.width - bound)
@@ -56,6 +82,7 @@ public class cameraController : MonoBehaviour {
 				transform.position = new Vector3 (transform.position.x, transform.position.y-scrollSpeed, transform.position.z);
 			}
 		}
+		*/
 
 		if(Input.GetMouseButton(0))
 		{
@@ -66,7 +93,22 @@ public class cameraController : MonoBehaviour {
 			{
 				groundPlane.Raycast(mouse, out hitDist);
 				Vector3 mousePos = mouse.GetPoint(hitDist);
-				this.transform.position += mouseDownPos - mousePos;
+				//this.transform.position += mouseDownPos - mousePos;
+				if (this.transform.position.x + mouseDownPos.x- mousePos.x > -cameraLimit && 
+				    this.transform.position.x + mouseDownPos.x- mousePos.x < cameraLimit)
+				{
+					//this.transform.position += mouseDownPos - mousePos;
+					this.transform.position = new Vector3(this.transform.position.x + mouseDownPos.x- mousePos.x,
+					                                      this.transform.position.y,
+					                                      this.transform.position.z);
+				}
+				if (this.transform.position.y + mouseDownPos.y- mousePos.y > -cameraLimit && 
+				    this.transform.position.y + mouseDownPos.y- mousePos.y < cameraLimit)
+				{
+					this.transform.position = new Vector3(this.transform.position.x,
+					                                      this.transform.position.y + mouseDownPos.y- mousePos.y,
+					                                      this.transform.position.z);
+				}
 			}
 			else if(Input.GetMouseButtonDown(0))
 			{
