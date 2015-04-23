@@ -40,7 +40,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 776e8610b5b47fc498bc5969fbbd9b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoboObject: {fileID: 144306, guid: 3e94857f1428af845a3a3836683d7654, type: 2}
+  hobo1: {fileID: 144306, guid: 3e94857f1428af845a3a3836683d7654, type: 2}
+  hobo2: {fileID: 143602, guid: 975250ef68ff86a42ad38eb582fd2457, type: 2}
+  hobo3: {fileID: 182128, guid: 35af141eff6414042a6cf6941cdb5e8a, type: 2}
+  hobo4: {fileID: 197064, guid: 96a46414a197cfc4881c538fd6e1c2dd, type: 2}
+  hobo5: {fileID: 128724, guid: ed6180d6be0cc9648bc3c209af72b913, type: 2}
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1
