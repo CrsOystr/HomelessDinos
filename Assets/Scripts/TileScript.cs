@@ -129,6 +129,7 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 				}
 					// UPGRADE TOWERS NEEDS TO BECOME ADDED HERE
 					//b2[0].onClick.AddListener (() => currentObject.);
+					b2[0].onClick.AddListener (() => this.currentObject.GetComponent<needObjectScript>().UpgradeObject());
 					b2[0].GetComponentInChildren<Text> ().text = currentObject.GetComponent<needObjectScript>().upgradeCost.ToString();
 					b2[1].onClick.AddListener (() => this.deleteObject());
 					b2[1].GetComponentInChildren<Text> ().text = currentObject.GetComponent<needObjectScript>().sellPrice.ToString();  
