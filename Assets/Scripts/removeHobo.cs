@@ -4,11 +4,13 @@ using System.Collections;
 public class removeHobo : MonoBehaviour {
 
 	scoreScript repScript;
+	ISOGRID gridScript;
 
 	// Use this for initialization
 	void Start () {
 	
 		repScript = GameObject.Find("ScoreKeeper").GetComponent<scoreScript>();
+		gridScript = GameObject.Find("MainGrid").GetComponent<ISOGRID>();
 		//repScript.reputation += 10;
 	}
 	
@@ -25,16 +27,19 @@ public class removeHobo : MonoBehaviour {
 		{
 			// adjust currency and reputation
 			HomelessAI hobo = collision.gameObject.GetComponent<HomelessAI>();
-			if (Mathf.Max(hobo.needsLevel) <= 0)
+			if (!gridScript.readyToAdvance)
 			{
-				repScript.reputation += hobo.startHoboDifficulty;
-				//repScript.currency += 300;
-			}
-			else
-			{
-				//repScript.reputation -= 3*Mathf.Max(hobo.needsLevel);
-				repScript.reputation -= hobo.currentHoboDifficulty;
-				repScript.currency -= (50*(2+repScript.day))*Mathf.Max(hobo.needsLevel);
+				if (Mathf.Max(hobo.needsLevel) <= 0)
+				{
+					repScript.reputation += hobo.startHoboDifficulty;
+					//repScript.currency += 300;
+				}
+				else
+				{
+					//repScript.reputation -= 3*Mathf.Max(hobo.needsLevel);
+					repScript.reputation -= hobo.currentHoboDifficulty;
+					repScript.currency -= (50*(2+repScript.day))*Mathf.Max(hobo.needsLevel);
+				}
 			}
 
 			// remove hobo

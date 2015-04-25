@@ -39,6 +39,8 @@ public class ISOGRID : MonoBehaviour {
 	public Button dayButton;
 	public Button continueButton;
 	public Button newDayPathButton;
+	public GameObject dayPanel;
+	public GameObject blockPanel;
 
 	// variables visible to other scripts but not to the unity editor
 	[HideInInspector]
@@ -99,8 +101,21 @@ public class ISOGRID : MonoBehaviour {
 		{
 			//ready to move on to next day
 			readyToAdvance = true;
-			continueButton.interactable = true;
-		}
+			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().stopHobos();
+
+			/*
+			advanceDay();
+			dayPanel.SetActive(true);
+			blockPanel.SetActive(true);
+			*/
+			if (GameObject.Find("hobo") == null)
+            {
+				advanceDay();
+				dayPanel.SetActive(true);
+				blockPanel.SetActive(true);
+            }
+        }
+        
 	}
 
 	private bool CheckValidPath()

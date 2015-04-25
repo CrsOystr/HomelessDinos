@@ -121,7 +121,7 @@ public class needObjectScript : MonoBehaviour {
 			{
 				if (!eating)
 				{				                                          // increases speed by 5 percent per adjacent need object  
-					needTime = baseTime - (level*(0.5f) - volunteer*2.0f) * (1.0f + 0.05f * numberAdjacentObjects);
+					needTime = baseTime - (level*(0.3f) - volunteer*2.0f) * (1.0f + 0.05f * numberAdjacentObjects);
 					eating = true;
 				}
 				currentTime += Time.deltaTime;
@@ -133,6 +133,24 @@ public class needObjectScript : MonoBehaviour {
 					currentTime = 0.0f;
 				}
 			}
+		}
+	}
+
+	public bool UpgradeObject()
+	{
+		if (this.transform.parent.GetComponent<TileScript>().parentScript.moneyScript.currency >= upgradeCost)
+		{
+			if (level < 6)
+			{
+				level++;
+				this.transform.parent.GetComponent<TileScript>().parentScript.moneyScript.currency -= upgradeCost;
+				return true;
+			}
+			return false;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }
