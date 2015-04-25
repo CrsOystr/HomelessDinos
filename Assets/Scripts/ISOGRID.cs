@@ -11,7 +11,6 @@ public class ISOGRID : MonoBehaviour {
 	public Vector3 Size;
 	public GameObject selectedTile;
 
-
 	public Transform[,] Grid;
 	public GameBuilding[,] Logic_Grid;
 
@@ -38,6 +37,18 @@ public class ISOGRID : MonoBehaviour {
 	private int exitTile;
 	public Text pathText;
 	public Button dayButton;
+	public Button continueButton;
+	public Button newDayPathButton;
+
+	// variables visible to other scripts but not to the unity editor
+	[HideInInspector]
+	public bool pathMode = true;
+	public bool towerMode = false;
+	public bool readyToAdvance = false;
+	public int[] dayGoals = new int[] {0,15,25,45,85}; 
+	public int numPaths = 10;
+	public string printMessage = "";
+	public bool messageOverride = false;
 
 	// Use this for initialization
 	void Start () {
@@ -45,7 +56,8 @@ public class ISOGRID : MonoBehaviour {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		if (selectedTile != null)
 		{
 			// press button for stove
@@ -65,95 +77,106 @@ public class ISOGRID : MonoBehaviour {
 				selectedTile.GetComponent<TileScript>().deleteObject();
 			}
 
-
-			if(moneyScript.day == 1)
+			// ensures valid path whenever we are in path placing mode
+			if(pathMode)
 			{
 				if (CheckValidPath())
 				{
 					// enable button
 					dayButton.interactable = true;
+					newDayPathButton.interactable = true;
 				}
 				else
 				{
 					// disable button
 					dayButton.interactable = false;
+					newDayPathButton.interactable = false;
 					//print ("button should be off");
 				}
 			}
+		}
+		if (moneyScript.reputation >= dayGoals[moneyScript.day])
+		{
+			//ready to move on to next day
+			readyToAdvance = true;
+			continueButton.interactable = true;
 		}
 	}
 
 	private bool CheckValidPath()
 	{
 		bool validPath = false;
-		string printMessage = "shit";
+		//printMessage = "shit";
 		int tileX = 0;
 		int tileY = enterTile;
 		
 		int prevX = tileX;
 		int prevY = tileY;
-		
-		for(int i = 0; i < 1000; i++)
+
+		if (!messageOverride)
 		{
-			// get nearby tiles
-			List<Vector2> pathList = nearbyPaths(tileX,tileY);
-			//print ("" + tileX + " " + tileY);
-			
-			// if more than two nearby tiles, invalid path, break
-			if (0 == tileX && enterTile == tileY)
+			for(int i = 0; i < 1000; i++)
 			{
-				if (pathList.Count != 1)
+				// get nearby tiles
+				List<Vector2> pathList = nearbyPaths(tileX,tileY);
+				//print ("" + tileX + " " + tileY);
+				
+				// if more than two nearby tiles, invalid path, break
+				if (0 == tileX && enterTile == tileY)
 				{
-					printMessage = "The entrance tile does not have a single path from it";
+					if (pathList.Count != 1)
+					{
+						printMessage = "The entrance tile does not have a single path from it";
+						validPath = false;
+						break;
+					}
+				}
+				else if (pathList.Count > 2)
+				{
+					printMessage = "This path is invalid. Make sure your path only goes one way";
 					validPath = false;
 					break;
 				}
-			}
-			else if (pathList.Count > 2)
-			{
-				printMessage = "This path is invalid. Make sure your path only goes one way";
-				validPath = false;
-				break;
-			}
-			
-			// if on last tile, valid path, break
-			if (tileX == exitTile && tileY == 0)
-			{
-				printMessage = "This path is valid! Click to advance day";
-				validPath = true;
-				break;
-			}
-			
-			// if only one nearby tile, invalid path, break
-			if (0 == tileX && enterTile == tileY)
-			{
-			}
-			else if (pathList.Count < 2)
-			{
-				printMessage = "This path does not end at the red exit tile";
-				validPath = false;
-				break;
-			}
-			
-			// move to next tile
-			foreach(Vector2 tile in pathList)
-			{
-				if ((int)tile.x == prevX && (int)tile.y == prevY)
+				
+				// if on last tile, valid path, break
+				if (tileX == exitTile && tileY == 0)
 				{
-				}
-				else
-				{
-					prevX = tileX;
-					prevY = tileY;
-					tileX = (int)tile.x;
-					tileY = (int)tile.y;
+					printMessage = "This path is valid! Click next to continue";
+					validPath = true;
 					break;
 				}
-			}
-			if (i > 100)
-			{
-				print("shit went bad");
-				break;
+				
+				// if only one nearby tile, invalid path, break
+				if (0 == tileX && enterTile == tileY)
+				{
+				}
+				else if (pathList.Count < 2)
+				{
+					printMessage = "This path does not end at the red exit tile";
+					validPath = false;
+					break;
+				}
+				
+				// move to next tile
+				foreach(Vector2 tile in pathList)
+				{
+					if ((int)tile.x == prevX && (int)tile.y == prevY)
+					{
+					}
+					else
+					{
+						prevX = tileX;
+						prevY = tileY;
+						tileX = (int)tile.x;
+						tileY = (int)tile.y;
+						break;
+					}
+				}
+				if (i > 100)
+				{
+					print("shit went bad");
+					break;
+				}
 			}
 		}
 
@@ -163,13 +186,52 @@ public class ISOGRID : MonoBehaviour {
 	}
 
 	//function moves day forward and clears selection
-	public void advanceDay(){
-		moneyScript.addDay ();
-		deselectThisTile ();
-		if (moneyScript.day == 3) {
-			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().startHobos();
+	public void advanceDay()
+	{
+		if (readyToAdvance)
+		{
+			readyToAdvance = false;
+			moneyScript.addDay ();
+			numPaths += 10;
+			deselectThisTile ();
+			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().stopHobos();
+		}
+
+		else
+		{
+			if (towerMode)
+			{
+				deselectThisTile ();
+				Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().startHobos();
+				//dayButton.GetComponentInChildren<Text>().text = "NEXT DAY";
+			}
+			
+			if (pathMode)
+			{
+				pathMode = false;
+				towerMode = true;
+			}
 		}
 	}
+
+	public void continuePrep()
+	{
+		deselectThisTile ();
+		if(pathMode)
+		{
+			pathMode = false;
+			towerMode = true;
+			deselectThisTile ();
+			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().startHobos();
+		}
+
+		else if (towerMode)
+		{
+			towerMode = false;
+			pathMode = true;
+		}
+	}
+
 
 	//FUNction for set up the grid
 	void CreateGrid(){
@@ -191,8 +253,8 @@ public class ISOGRID : MonoBehaviour {
 			}
 		}
 
-		enterTile = Random.Range(4, (int)Size.y-1);
-		exitTile = Random.Range (4, (int)Size.x-1);
+		enterTile = Random.Range(moneyScript.day * 2 + 1, (int)Size.y - (8 - moneyScript.day * 2));
+		exitTile = Random.Range (moneyScript.day * 2 + 1, (int)Size.x - (8 - moneyScript.day * 2));
 		// create enterTile and exitTile
 		Grid[0,enterTile].GetComponent<TileScript>().buildObject(enterTilePref, "spawn");
 		Grid[exitTile,0].GetComponent<TileScript>().buildObject(exitTilePref, "spawn");

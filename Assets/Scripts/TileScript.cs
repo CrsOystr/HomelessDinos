@@ -72,7 +72,9 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 
 	public void buildMenu (int type)
 	{	
-		if (parentScript.moneyScript.day == 1) {
+		if (parentScript.pathMode)
+		//if (parentScript.moneyScript.day == 1) 
+		{
 			if (this.currentObject == null) {
 				GameObject test1 = Instantiate (pathMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 				Button b1 = test1.GetComponentInChildren<Button> ();
@@ -92,7 +94,10 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 				currentMenu.transform.parent = this.transform;
 				menuUp = true;
 			}
-		} else if (parentScript.moneyScript.day != 1) {
+		} 
+		else if (parentScript.towerMode)
+		//else if (parentScript.moneyScript.day != 1) 
+		{
 			if (this.currentObject == null) {
 				GameObject test1 = Instantiate (mainBuildMenu, new Vector3 (transform.position.x, transform.position.y, 0), Quaternion.identity) as GameObject;
 				Button[] b2= test1.GetComponentsInChildren<Button>();
@@ -127,11 +132,9 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 
 					this.currentMenu = test1;
 					currentMenu.transform.parent = this.transform;
-					menuUp = true;
-				
+					menuUp = true;				
 			}
-		}
-		
+		}		
 	}
 
 
@@ -141,38 +144,51 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 	{
 		if (!objectPlaced && type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
 		{
-			// for sound
-			if (playAudio != null)
+			if (type != "path" || parentScript.numPaths >0)
 			{
-				playAudio.clip = soundBuild;
-				playAudio.Play();
-			}
+				// for sound
+				if (playAudio != null)
+				{
+					playAudio.clip = soundBuild;
+					playAudio.Play();
+				}
 
-			GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
-			test.name = type;
-			this.currentObject = test;
-			//currentObject = test;
-			//newCell.name = string.Format("({0},{1})",x,y);
-			currentObject.transform.parent = this.transform;
-			// for properly layering objects
-			if (type == "path" || type == "spawn")
-			{
-				currentObject.renderer.sortingOrder = 1;
+				GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+				test.name = type;
+				this.currentObject = test;
+				//currentObject = test;
+				//newCell.name = string.Format("({0},{1})",x,y);
+				currentObject.transform.parent = this.transform;
+				// for properly layering objects
+				if (type == "path" || type == "spawn")
+				{
+					currentObject.renderer.sortingOrder = 1;
+				}
+				else
+				{
+					currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
+				}
+			
+				objectPlaced = true;
+
+				deleteMenu();
+				if (selected)
+				{
+					currentObject.renderer.material.color = tintObject;
+				}
+				if(null != addObject.GetComponent<needObjectScript>()){
+					parentScript.moneyScript.currency -= addObject.GetComponent<needObjectScript>().cost;
+				}
+				if(type == "path")
+				{
+					parentScript.numPaths --;
+
+				}
 			}
 			else
 			{
-				currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
-			}
-		
-			objectPlaced = true;
-
-			deleteMenu();
-			if (selected)
-			{
-				currentObject.renderer.material.color = tintObject;
-			}
-			if(null != addObject.GetComponent<needObjectScript>()){
-				parentScript.moneyScript.currency -= addObject.GetComponent<needObjectScript>().cost;
+				parentScript.messageOverride = true;
+				parentScript.printMessage = "You have run out of path tiles";
 			}
 		}
 	}
@@ -182,6 +198,11 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 		if(objectPlaced)
 		{
 			parentScript.moneyScript.currency += currentObject.GetComponent<needObjectScript>().sellPrice;
+			if (currentObject.GetComponent<needObjectScript>().sellPrice == 45)
+			{
+				parentScript.numPaths ++;
+				parentScript.messageOverride = false;
+			}
 			Destroy(this.currentObject);
 			objectPlaced = false;
 			if (playAudio != null)

@@ -33,7 +33,6 @@ public class scoreScript : MonoBehaviour {
 		{
 			endScreen.SetActive(true);
 			blockingPanel.SetActive(true);
-
 		}
 	}
 

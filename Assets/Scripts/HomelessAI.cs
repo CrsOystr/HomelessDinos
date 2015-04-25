@@ -45,18 +45,18 @@ public class HomelessAI : MonoBehaviour
 
 		// All this is for adjusting the difficulty of the game
 		needsLevel = new int[4] {0, 0, 0, 0};
-		needsLevel[0] = Random.Range(0,2 + repScript.reputation / 20);
-		if (difficulty > 20)
+		needsLevel[0] = Random.Range(0,2 + repScript.day);
+		if (repScript.day > 1)
 		{
-			needsLevel[1] = Random.Range(0,2 + repScript.reputation / 20);
+			needsLevel[1] = Random.Range(0,2 + repScript.day);
 		}
-		if (difficulty > 30)
+		if (repScript.day > 2)
 		{
-			needsLevel[2] = Random.Range(0,2 + repScript.reputation / 20);
+			needsLevel[2] = Random.Range(0,2 + repScript.day);
 		}
-		if (difficulty > 60)
+		if (repScript.day > 3)
 		{
-			needsLevel[3] = Random.Range(0,2 + repScript.reputation / 20);
+			needsLevel[3] = Random.Range(0,2 + repScript.day);
 		}
 
 		// represents the overall difficulty of a hobo on spawn, used for scoring.
@@ -72,8 +72,8 @@ public class HomelessAI : MonoBehaviour
 
 		// this is how fast the hobo will move. tweak based on difficulty
 		// Mathf.Max is so that if the difficulty becomes very large, we won't get negative speeds
-		waitTime = Random.Range(Mathf.Max(2.0f-((float)difficulty*0.005f),0.3f),
-		                        Mathf.Max(3.0f-((float)difficulty*0.001f),0.9f));
+		waitTime = Random.Range(Mathf.Max(2.0f-((float)repScript.reputation*0.05f),0.3f),
+		                        Mathf.Max(3.0f-((float)repScript.reputation*0.01f),0.9f));
 
 		previousTile.x = gridPosition.x;
 		previousTile.y = gridPosition.y;
