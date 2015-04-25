@@ -56,32 +56,60 @@ public class needObjectScript : MonoBehaviour {
 
 
 		// update rotation based on nearby path
+		if (this.name != "temp")
+		{
+			RotateToPath();
+		}
+	}
+
+	public void RotateToPath(int rotation = -1)
+	{
 		if (objectTypeID != 0)
 		{
-			List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
-			foreach(Vector2 tile in pathList)
+			if (rotation == -1)
 			{
-				if (tile.x < gridPosition.x)
+				List<Vector2> pathList = gridScript.nearbyPaths((int)gridPosition.x,(int)gridPosition.y);
+				foreach(Vector2 tile in pathList)
 				{
-					GetComponent<SpriteRenderer>().sprite = rotationSprites[1];
-					break;
-				}
-				if (tile.x > gridPosition.x)
-				{
-					GetComponent<SpriteRenderer>().sprite = rotationSprites[3];
-					break;
-				}
-				if (tile.y < gridPosition.y)
-				{
-					GetComponent<SpriteRenderer>().sprite = rotationSprites[0];
-					break;
-				}
-				if (tile.y > gridPosition.y)
-				{
-					GetComponent<SpriteRenderer>().sprite = rotationSprites[2];
-					break;
+					if (tile.x < gridPosition.x)
+					{
+						GetComponent<SpriteRenderer>().sprite = rotationSprites[1];
+						break;
+					}
+					if (tile.x > gridPosition.x)
+					{
+						GetComponent<SpriteRenderer>().sprite = rotationSprites[3];
+						break;
+					}
+					if (tile.y < gridPosition.y)
+					{
+						GetComponent<SpriteRenderer>().sprite = rotationSprites[0];
+						break;
+					}
+					if (tile.y > gridPosition.y)
+					{
+						GetComponent<SpriteRenderer>().sprite = rotationSprites[2];
+						break;
+					}
 				}
 			}
+			else if (rotation == 0)
+			{
+				GetComponent<SpriteRenderer>().sprite = rotationSprites[1];
+			}
+			else if (rotation == 1)
+			{
+				GetComponent<SpriteRenderer>().sprite = rotationSprites[3];
+			}
+			else if (rotation == 2)
+			{
+				GetComponent<SpriteRenderer>().sprite = rotationSprites[0];
+			}
+			else if (rotation == 3)
+			{
+				GetComponent<SpriteRenderer>().sprite = rotationSprites[2];
+			}
+
 		}
 	}
 	

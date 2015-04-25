@@ -27,6 +27,9 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 
 	private float lastTime;
 
+	// for beds occupying two tiles
+	private TileScript otherTile;
+
 	Color tintObject = new Color(0.9f, 0.5f, 0.5f, 0.5f);
 	Color restoreObject = new Color(1.0f, 1.0f, 1.0f, 0.8f);
 
@@ -49,7 +52,7 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 
 	public void OnPointerUp (PointerEventData eventData)
 	{
-		if (Time.time - lastTime < 0.35f)
+		if (Time.time - lastTime < 0.25f)
 		{
 			parentScript.selectThisTile (gameObject);
 			buildMenu(1);
@@ -140,12 +143,81 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 
 
 	// create object
-	public void buildObject(GameObject addObject, string type)
+	public bool buildObject(GameObject addObject, string type)
 	{
-		if (!objectPlaced && type == "spawn" || parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
+		if (!objectPlaced && type == "spawn" || !objectPlaced && parentScript.moneyScript.currency >= addObject.GetComponent<needObjectScript>().cost)
 		{
 			if (type != "path" || parentScript.numPaths >0)
 			{
+
+
+				if (type == "sleep")
+				{
+					if (parentScript.Grid[(int)Position.x,(int)Position.y+1].GetComponent<TileScript>().buildObject(addObject, "temp"))
+					{
+						this.otherTile = parentScript.Grid[(int)Position.x,(int)Position.y+1].GetComponent<TileScript>();
+						otherTile.otherTile = this;
+						this.currentObject = otherTile.currentObject;
+						currentObject.name = type;
+						objectPlaced = true;
+
+						// placement
+						this.currentObject.GetComponent<needObjectScript>().RotateToPath(0);
+						this.currentObject.transform.position = new Vector3(this.transform.position.x-0.5f,this.transform.position.y-0.54f,this.transform.position.z);
+					}
+					else if (parentScript.Grid[(int)Position.x,(int)Position.y-1].GetComponent<TileScript>().buildObject(addObject, "temp"))
+					{
+						this.otherTile = parentScript.Grid[(int)Position.x,(int)Position.y-1].GetComponent<TileScript>();
+						otherTile.otherTile = this;
+						this.currentObject = otherTile.currentObject;
+						currentObject.name = type;
+						objectPlaced = true;
+						
+						// placement
+						this.currentObject.GetComponent<needObjectScript>().RotateToPath(1);
+						this.currentObject.transform.position = new Vector3(this.transform.position.x+0.5f,this.transform.position.y-1.04f,this.transform.position.z);
+					}
+					else if (parentScript.Grid[(int)Position.x+1,(int)Position.y].GetComponent<TileScript>().buildObject(addObject, "temp"))
+					{
+						this.otherTile = parentScript.Grid[(int)Position.x+1,(int)Position.y].GetComponent<TileScript>();
+						otherTile.otherTile = this;
+						this.currentObject = otherTile.currentObject;
+						currentObject.name = type;
+						objectPlaced = true;
+						
+						// placement
+						this.currentObject.GetComponent<needObjectScript>().RotateToPath(2);
+						this.currentObject.transform.position = new Vector3(this.transform.position.x+0.52f,this.transform.position.y-0.52f,this.transform.position.z);
+
+					}
+					else if (parentScript.Grid[(int)Position.x-1,(int)Position.y].GetComponent<TileScript>().buildObject(addObject, "temp"))
+					{
+						this.otherTile = parentScript.Grid[(int)Position.x-1,(int)Position.y].GetComponent<TileScript>();
+						otherTile.otherTile = this;
+						this.currentObject = otherTile.currentObject;
+						currentObject.name = type;
+						objectPlaced = true;
+						
+						// placement
+						this.currentObject.GetComponent<needObjectScript>().RotateToPath(3);
+						this.currentObject.transform.position = new Vector3(this.transform.position.x-0.5f,this.transform.position.y-1.01f,this.transform.position.z);
+
+					}
+					else
+					{
+						return false;
+					}
+				}
+				else
+				{
+					GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
+					test.name = type;
+					this.currentObject = test;
+					currentObject.transform.parent = this.transform;
+					// object now on this tile
+					objectPlaced = true;
+				}
+
 				// for sound
 				if (playAudio != null)
 				{
@@ -153,12 +225,7 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 					playAudio.Play();
 				}
 
-				GameObject test = Instantiate(addObject, new Vector3 (transform.position.x, transform.position.y-0.5f, 0), Quaternion.identity) as GameObject; 
-				test.name = type;
-				this.currentObject = test;
-				//currentObject = test;
-				//newCell.name = string.Format("({0},{1})",x,y);
-				currentObject.transform.parent = this.transform;
+
 				// for properly layering objects
 				if (type == "path" || type == "spawn")
 				{
@@ -169,14 +236,15 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 					currentObject.renderer.sortingOrder = 10000-((int)Position.x + (int)Position.y);
 				}
 			
-				objectPlaced = true;
+
 
 				deleteMenu();
 				if (selected)
 				{
 					currentObject.renderer.material.color = tintObject;
 				}
-				if(null != addObject.GetComponent<needObjectScript>()){
+				if(null != addObject.GetComponent<needObjectScript>() && type != "temp"){
+					// remove cost of this object
 					parentScript.moneyScript.currency -= addObject.GetComponent<needObjectScript>().cost;
 				}
 				if(type == "path")
@@ -184,13 +252,19 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 					parentScript.numPaths --;
 
 				}
+
+				// successfully built
+				return true;
 			}
 			else
 			{
 				parentScript.messageOverride = true;
 				parentScript.printMessage = "You have run out of path tiles";
+
+				return false;
 			}
 		}
+		return false;
 	}
 
 	public void deleteObject()
@@ -203,6 +277,14 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 				parentScript.numPaths ++;
 				parentScript.messageOverride = false;
 			}
+
+
+			if (this.currentObject.name == "sleep")
+			{
+				this.otherTile.objectPlaced = false;
+			}
+
+
 			Destroy(this.currentObject);
 			objectPlaced = false;
 			if (playAudio != null)
