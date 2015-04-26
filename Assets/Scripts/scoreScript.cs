@@ -21,11 +21,26 @@ public class scoreScript : MonoBehaviour {
 	public GameObject endScreen;
 	public GameObject blockingPanel;
 
+	public MainMenuFunctions menuFunctions;
+
 
 	// Use this for initialization
 	void Start () {
 		day = 1;
 		mainGrid = GameObject.Find ("MainGrid").GetComponent<ISOGRID> ();
+
+		if (PlayerPrefs.GetInt("loadSave") == 1)
+		{
+			currency = PlayerPrefs.GetInt("currency");
+			reputation = PlayerPrefs.GetInt("reputation");
+			day = PlayerPrefs.GetInt("day");
+		}
+		else
+		{
+			PlayerPrefs.SetInt("currency", currency);
+			PlayerPrefs.SetInt("reputation", reputation);
+			PlayerPrefs.SetInt("day", day);
+		}
 	}
 	
 	// Update is called once per frame
@@ -46,5 +61,15 @@ public class scoreScript : MonoBehaviour {
 	//function to manually add one day.
 	public void addDay(){
 		day++;
+	}
+
+	public void SaveAndQuit()
+	{
+		PlayerPrefs.SetInt("currency", currency);
+		PlayerPrefs.SetInt("reputation", reputation);
+		PlayerPrefs.SetInt("day", day);
+
+		menuFunctions.ChangeScene(0);
+
 	}
 }

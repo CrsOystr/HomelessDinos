@@ -477,7 +477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &270293642
 RectTransform:
   m_ObjectHideFlags: 0
@@ -757,6 +757,7 @@ MonoBehaviour:
   foodStorage: 0
   endScreen: {fileID: 2134185410}
   blockingPanel: {fileID: 1540460833}
+  menuFunctions: {fileID: 355100200}
 --- !u!4 &303314940
 Transform:
   m_ObjectHideFlags: 0
@@ -2227,9 +2228,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355100200}
-        m_MethodName: ChangeScene
-        m_Mode: 3
+      - m_Target: {fileID: 303314939}
+        m_MethodName: SaveAndQuit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine, Version=0.0.0.0,

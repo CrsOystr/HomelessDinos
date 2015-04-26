@@ -58,6 +58,8 @@ public class ISOGRID : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		CreateGrid ();
+		numPaths = moneyScript.day*10;
+
 	}
 
 	// Update is called once per frame

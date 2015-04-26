@@ -13,6 +13,20 @@ public class MainMenuFunctions : MonoBehaviour {
 	
 	}
 
+	public void ContinueGame()
+	{
+		PlayerPrefs.SetInt("loadSave",1);
+		PlayerPrefs.Save();
+		ChangeScene(1);
+	}
+
+	public void newGame()
+	{
+		PlayerPrefs.SetInt("loadSave",0);
+		PlayerPrefs.Save();
+		ChangeScene(1);
+	}
+
 	public void ChangeScene(int newScene)
 	{
 		Application.LoadLevel(newScene);
