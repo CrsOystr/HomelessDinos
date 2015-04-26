@@ -41,6 +41,9 @@ public class ISOGRID : MonoBehaviour {
 	public Button newDayPathButton;
 	public GameObject dayPanel;
 	public GameObject blockPanel;
+	public GameObject escapePanel;
+	public GameObject tilePanel;
+
 
 	// variables visible to other scripts but not to the unity editor
 	[HideInInspector]
@@ -60,6 +63,22 @@ public class ISOGRID : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		//Looking to create escape menu
+		if (Input.GetKeyDown (KeyCode.Escape) && !escapePanel.activeSelf){
+			escapePanel.SetActive(true);
+			blockPanel.SetActive(true);
+		} else if(Input.GetKeyDown (KeyCode.Escape) && escapePanel.activeSelf){
+			escapePanel.SetActive(false);
+			blockPanel.SetActive(false);
+		}
+		if(pathMode && !blockPanel.activeSelf) tilePanel.SetActive(true);
+		if(!pathMode) tilePanel.SetActive(false);
+
+
+
+		//else if(Input.GetKey (KeyCode.Escape) &&
+		       // GameObject.Find("returnToMenu").SetActive(false);
+
 		if (selectedTile != null)
 		{
 			// press button for stove
@@ -210,6 +229,8 @@ public class ISOGRID : MonoBehaviour {
 			numPaths += 10;
 			deselectThisTile ();
 			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().stopHobos();
+			tilePanel.SetActive(true);
+
 		}
 
 		else

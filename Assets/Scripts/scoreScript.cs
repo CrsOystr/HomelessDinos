@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class scoreScript : MonoBehaviour {
 
+	public ISOGRID mainGrid;
+
 	public int currency;
 	public int reputation;
 	public int day;
@@ -11,6 +13,8 @@ public class scoreScript : MonoBehaviour {
 	public Text curText;
 	public Text repText;
 	public Text dayText;
+	public Text tileText;
+
 
 	public int foodStorage;
 
@@ -21,6 +25,7 @@ public class scoreScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		day = 1;
+		mainGrid = GameObject.Find ("MainGrid").GetComponent<ISOGRID> ();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +33,8 @@ public class scoreScript : MonoBehaviour {
 		curText.text = currency.ToString();
 		repText.text = reputation.ToString();
 		dayText.text = day.ToString();
+		tileText.text = mainGrid.numPaths.ToString ();
+
 
 		if (currency < 0)
 		{
