@@ -23,6 +23,10 @@ public class scoreScript : MonoBehaviour {
 
 	public MainMenuFunctions menuFunctions;
 
+	public GameObject introScreen;
+	public GameObject continueScreen;
+	public GameObject[] panels;
+
 
 	// Use this for initialization
 	void Start () {
@@ -34,12 +38,18 @@ public class scoreScript : MonoBehaviour {
 			currency = PlayerPrefs.GetInt("currency");
 			reputation = PlayerPrefs.GetInt("reputation");
 			day = PlayerPrefs.GetInt("day");
+			continueScreen.SetActive(true);
+			foreach(GameObject obj in panels)
+			{
+				obj.SetActive(true);
+			}
 		}
 		else
 		{
 			PlayerPrefs.SetInt("currency", currency);
 			PlayerPrefs.SetInt("reputation", reputation);
 			PlayerPrefs.SetInt("day", day);
+			introScreen.SetActive(true);
 		}
 	}
 	
@@ -65,9 +75,12 @@ public class scoreScript : MonoBehaviour {
 
 	public void SaveAndQuit()
 	{
+		mainGrid.clearGrid();
+
 		PlayerPrefs.SetInt("currency", currency);
 		PlayerPrefs.SetInt("reputation", reputation);
 		PlayerPrefs.SetInt("day", day);
+
 
 		menuFunctions.ChangeScene(0);
 
