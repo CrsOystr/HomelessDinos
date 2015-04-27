@@ -37,7 +37,6 @@ public class ISOGRID : MonoBehaviour {
 	private int exitTile;
 	public Text pathText;
 	public Button dayButton;
-	public Button continueButton;
 	public Button newDayPathButton;
 	public GameObject dayPanel;
 	public GameObject blockPanel;
@@ -134,6 +133,7 @@ public class ISOGRID : MonoBehaviour {
 				advanceDay();
 				dayPanel.SetActive(true);
 				blockPanel.SetActive(true);
+				clearGrid();
             }
         }
         
@@ -233,6 +233,9 @@ public class ISOGRID : MonoBehaviour {
 			Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().stopHobos();
 			tilePanel.SetActive(true);
 
+			towerMode = false;
+			pathMode = true;
+
 		}
 
 		else
@@ -248,10 +251,14 @@ public class ISOGRID : MonoBehaviour {
 			{
 				pathMode = false;
 				towerMode = true;
+				//Grid[0,enterTile].GetComponent<TileScript>().currentObject.GetComponent<spawnHobo>().startHobos();
+
+
 			}
 		}
 	}
 
+	/*
 	public void continuePrep()
 	{
 		deselectThisTile ();
@@ -269,6 +276,7 @@ public class ISOGRID : MonoBehaviour {
 			pathMode = true;
 		}
 	}
+	*/
 
 
 	//FUNction for set up the grid
@@ -316,6 +324,23 @@ public class ISOGRID : MonoBehaviour {
 			wall.transform.parent = transform;
 		}
 
+	}
+
+	public void clearGrid()
+	{
+		for (int y= 0; y < Size.y; y++) {
+			for (int x = 0; x < Size.x; x++) {
+
+				TileScript tile = Grid[x,y].GetComponent<TileScript>();
+				if (tile.objectPlaced)
+				{
+					if (tile.currentObject.GetComponent<needObjectScript>() != null)
+					{
+						tile.deleteObject();
+					}
+				}
+			}
+		}
 	}
 
 
