@@ -84,7 +84,44 @@ public class cameraController : MonoBehaviour {
 		}
 		*/
 
-		if(Input.GetMouseButton(0))
+		if(Input.touchCount == 2)
+		{
+			dragging = false; 
+			float orthoZoomSpeed = 0.05f;
+
+			// Store both touches.
+			Touch touchZero = Input.GetTouch(0);
+			Touch touchOne = Input.GetTouch(1);
+			
+			// Find the position in the previous frame of each touch.
+			Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+			Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+			
+			// Find the magnitude of the vector (the distance) between the touches in each frame.
+			float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+			float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+			
+			// Find the difference in the distances between each frame.
+			float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
+
+			// ... change the orthographic size based on the change in distance between the touches.
+			camera.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
+			//print (camera.orthographicSize);
+
+
+			if (camera.orthographicSize > 10f)
+			{
+				camera.orthographicSize = 10f;
+			}
+			else if (camera.orthographicSize < 2.5f)
+			{
+				camera.orthographicSize = 2.5f;
+			}
+			
+			// Make sure the orthographic size never drops below zero.
+			camera.orthographicSize = Mathf.Max(camera.orthographicSize, 0.1f);
+		}
+		else if(Input.GetMouseButton(0))
 		{
 			float hitDist;
 			Ray mouse = Camera.main.ScreenPointToRay(Input.mousePosition);
