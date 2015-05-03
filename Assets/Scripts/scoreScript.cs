@@ -65,6 +65,7 @@ public class scoreScript : MonoBehaviour {
 		{
 			endScreen.SetActive(true);
 			blockingPanel.SetActive(true);
+			Time.timeScale = 0.0f;
 		}
 	}
 

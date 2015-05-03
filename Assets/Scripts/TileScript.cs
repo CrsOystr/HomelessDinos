@@ -22,6 +22,7 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 	public GameObject upgradeMenu;
 
 	public AudioClip soundBuild;
+	public AudioClip soundCantBuild;
 	public AudioClip soundSell;
 	private AudioSource playAudio;
 
@@ -265,6 +266,12 @@ public class TileScript : MonoBehaviour, IPointerUpHandler, IPointerDownHandler 
 				return false;
 			}
 		}
+		if (playAudio != null)
+		{
+			playAudio.clip = soundCantBuild;
+			playAudio.Play();
+		}
+
 		return false;
 	}
 
