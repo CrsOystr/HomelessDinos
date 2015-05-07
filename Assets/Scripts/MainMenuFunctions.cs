@@ -29,6 +29,7 @@ public class MainMenuFunctions : MonoBehaviour {
 
 	public void ChangeScene(int newScene)
 	{
+		Time.timeScale = 1.0f;
 		Application.LoadLevel(newScene);
 	}
 
